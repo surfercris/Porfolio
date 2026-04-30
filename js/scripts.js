@@ -151,52 +151,43 @@ function revealOnScroll() {
 window.addEventListener('scroll', revealOnScroll);
 window.addEventListener('load', revealOnScroll);
 
-// ========== MEDIA GALLERY (IMAGENS E VÍDEOS) ==========
+// ========== MEDIA GALLERY (COM YOUTUBE) ==========
 
-// ===== CONFIGURAÇÃO FÁCIL - EDITA AQUI OS TEUS FICHEIROS =====
+// ===== CONFIGURAÇÃO - EDITA AQUI OS TEUS FICHEIROS =====
 
 // Lista de Imagens (adiciona as tuas imagens aqui)
 const images = [
     { src: "assets/imagem1.jpg", title: "Trabalho 3D", category: "3d" },
     { src: "assets/imagem2.jpg", title: "Design Gráfico", category: "design" },
-    { src: "assets/imagem3.jpg", title: "Modelo Blender", category: "3d" },
-    { src: "assets/imagem4.jpg", title: "Edição de Vídeo", category: "video" },
     // ADICIONA MAIS IMAGENS AQUI:
     // { src: "assets/nova-imagem.jpg", title: "Título da imagem", category: "3d" },
 ];
 
-// Lista de Vídeos (adiciona os teus vídeos aqui)
+// Lista de Vídeos do YouTube (COM OS TEUS LINKS)
+// IDs extraídos dos links:
+// https://www.youtube.com/watch?v=TSrK_4j9Uw0  -> ID: TSrK_4j9Uw0
+// https://www.youtube.com/watch?v=3eiycVUwRTM  -> ID: 3eiycVUwRTM
 const videos = [
     { 
-        src: "assets/proj1.mp4", 
-         thumbnail: "assets/teste.jpg",
-         title: "Título do Vídeo", 
-         description: "Descrição curta",
+        id: "TSrK_4j9Uw0",
+        title: "Vídeo 1 - Projeto Multimedia", 
+        description: "Descrição do primeiro vídeo - Projeto criado no Blender",
         category: "video"
     },
     { 
-        src: "assets/video2.mp4", 
-        thumbnail: "assets/thumb2.jpg",
-        title: "Projeto Multimedia", 
-        description: "Edição After Effects",
+        id: "3eiycVUwRTM",
+        title: "Vídeo 2 - Projeto Multimedia", 
+        description: "Descrição do segundo vídeo - Edição e animação",
         category: "video"
     },
-    // ADICIONA MAIS VÍDEOS AQUI:
-    { 
-        src: "assets/video3.mp4", 
-        thumbnail: "assets/thumb2.jpg",
-        title: "Projeto Multimedia", 
-        description: "Edição After Effects",
-        category: "video"
-     },
 ];
 
-// ===== NÃO EDITES PARA BAIXO (a não ser que saibas o que fazes) =====
+// ===== NÃO EDITES PARA BAIXO =====
 
 const imageGallery = document.getElementById('imageGallery');
 const videoGallery = document.getElementById('videoGallery');
 
-// Styles adicionais para a galeria (adicionados dinamicamente)
+// Estilos
 const galleryStyles = `
     .gallery-grid {
         display: grid;
@@ -246,7 +237,7 @@ const galleryStyles = `
     }
     .video-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 1.5rem;
         margin-top: 1rem;
     }
@@ -254,9 +245,9 @@ const galleryStyles = `
         background: rgba(26, 26, 46, 0.6);
         border-radius: 15px;
         overflow: hidden;
+        cursor: pointer;
         transition: all 0.4s ease;
         border: 1px solid rgba(96, 84, 67, 0.2);
-        cursor: pointer;
     }
     .video-card:hover {
         transform: translateY(-8px);
@@ -268,9 +259,6 @@ const galleryStyles = `
         width: 100%;
         aspect-ratio: 16/9;
         background: #1a1a2e;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         overflow: hidden;
     }
     .video-thumbnail img {
@@ -284,6 +272,9 @@ const galleryStyles = `
     }
     .play-button {
         position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         width: 60px;
         height: 60px;
         background: rgba(96, 84, 67, 0.9);
@@ -299,7 +290,7 @@ const galleryStyles = `
         margin-left: 5px;
     }
     .video-card:hover .play-button {
-        transform: scale(1.1);
+        transform: translate(-50%, -50%) scale(1.1);
         background: #605443;
     }
     .video-info {
@@ -376,11 +367,6 @@ const galleryStyles = `
         max-width: 900px;
         position: relative;
     }
-    .video-modal-content video {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
     .video-modal-close {
         position: absolute;
         top: -40px;
@@ -402,22 +388,26 @@ const galleryStyles = `
     }
 `;
 
-// Adicionar estilos ao documento
-const styleSheet = document.createElement('style');
-styleSheet.textContent = galleryStyles;
-document.head.appendChild(styleSheet);
+// Adicionar estilos
+if (!document.querySelector('#gallery-styles')) {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'gallery-styles';
+    styleSheet.textContent = galleryStyles;
+    document.head.appendChild(styleSheet);
+}
 
 // Renderizar imagens
 function renderImages(filter = 'all') {
     if (!imageGallery) return;
     imageGallery.innerHTML = '';
+    
     let filtered = images;
     if (filter !== 'all' && filter !== 'video') {
         filtered = images.filter(img => img.category === filter);
     }
     
     if (filtered.length === 0) {
-        imageGallery.innerHTML = '<div class="no-content">📷 Nenhuma imagem encontrada nesta categoria</div>';
+        imageGallery.innerHTML = '<div class="no-content">📷 Nenhuma imagem encontrada</div>';
         return;
     }
     
@@ -427,7 +417,7 @@ function renderImages(filter = 'all') {
         item.style.animation = `fadeInUp 0.4s ease forwards`;
         item.style.animationDelay = `${idx * 0.05}s`;
         item.innerHTML = `
-            <img src="${img.src}" alt="${img.title}" onerror="this.src='https://placehold.co/400x300/1a1a2e/605443?text=Imagem+Não+Encontrada'">
+            <img src="${img.src}" alt="${img.title}" onerror="this.src='https://placehold.co/400x300/1a1a2e/605443?text=Imagem'">
             <div class="gallery-overlay"><p>${img.title}</p></div>
         `;
         item.addEventListener('click', () => openLightbox(img.src, img.title));
@@ -435,30 +425,32 @@ function renderImages(filter = 'all') {
     });
 }
 
-// Renderizar vídeos
+// Renderizar vídeos do YouTube
 function renderVideos(filter = 'all') {
     if (!videoGallery) return;
     videoGallery.innerHTML = '';
+    
     let filtered = videos;
     if (filter !== 'all') {
         filtered = videos.filter(vid => vid.category === filter);
     }
     
     if (filtered.length === 0) {
-        videoGallery.innerHTML = '<div class="no-content">🎬 Nenhum vídeo encontrado nesta categoria</div>';
+        videoGallery.innerHTML = '<div class="no-content">🎬 Nenhum vídeo encontrado</div>';
         return;
     }
     
     filtered.forEach((vid, idx) => {
+        const thumbnailUrl = `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`;
         const card = document.createElement('div');
         card.className = 'video-card';
         card.style.animation = `fadeInUp 0.4s ease forwards`;
         card.style.animationDelay = `${idx * 0.05}s`;
         card.innerHTML = `
             <div class="video-thumbnail">
-                <img src="${vid.thumbnail || 'https://placehold.co/640x360/1a1a2e/605443?text=Vídeo'}" alt="${vid.title}">
+                <img src="${thumbnailUrl}" alt="${vid.title}">
                 <div class="play-button">
-                    <i class="fas fa-play"></i>
+                    <i class="fab fa-youtube"></i>
                 </div>
             </div>
             <div class="video-info">
@@ -466,8 +458,43 @@ function renderVideos(filter = 'all') {
                 <p>${vid.description || ''}</p>
             </div>
         `;
-        card.addEventListener('click', () => openVideoModal(vid.src, vid.title));
+        card.addEventListener('click', () => openYouTubeModal(vid.id, vid.title));
         videoGallery.appendChild(card);
+    });
+}
+
+// Modal para YouTube
+function openYouTubeModal(videoId, title) {
+    const modal = document.createElement('div');
+    modal.className = 'video-modal';
+    modal.innerHTML = `
+        <div class="video-modal-content">
+            <span class="video-modal-close">&times;</span>
+            <div style="position:relative; padding-bottom:56.25%; height:0; border-radius:10px; overflow:hidden;">
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                    style="position:absolute; top:0; left:0; width:100%; height:100%;" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p style="margin-top: 1rem; text-align: center;">${title}</p>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => modal.classList.add('active'), 10);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.classList.contains('video-modal-close')) {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.remove();
+                document.body.style.overflow = '';
+            }, 300);
+        }
     });
 }
 
@@ -492,38 +519,6 @@ function openLightbox(src, title) {
             lightbox.classList.remove('active');
             setTimeout(() => {
                 lightbox.remove();
-                document.body.style.overflow = '';
-            }, 300);
-        }
-    });
-}
-
-// Modal para vídeos
-function openVideoModal(src, title) {
-    const modal = document.createElement('div');
-    modal.className = 'video-modal';
-    modal.innerHTML = `
-        <div class="video-modal-content">
-            <span class="video-modal-close">&times;</span>
-            <video controls autoplay>
-                <source src="${src}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <p style="margin-top: 1rem; text-align: center;">${title}</p>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    document.body.style.overflow = 'hidden';
-    
-    setTimeout(() => modal.classList.add('active'), 10);
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal || e.target.classList.contains('video-modal-close')) {
-            const video = modal.querySelector('video');
-            if (video) video.pause();
-            modal.classList.remove('active');
-            setTimeout(() => {
-                modal.remove();
                 document.body.style.overflow = '';
             }, 300);
         }
@@ -560,10 +555,10 @@ if (filterBtns.length) {
     });
 }
 
-// Inicializar galeria
+// Inicializar
 if (imageGallery && videoGallery) {
     updateGallery();
 }
 
-// ========== FIM ==========
-console.log('Portfolio carregado com sucesso!');
+console.log('✅ Portfólio carregado com sucesso!');
+console.log('🎬 Vídeos carregados:', videos.length);
