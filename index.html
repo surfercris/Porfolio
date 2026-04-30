@@ -11,9 +11,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <style>
         * {
             margin: 0;
@@ -26,10 +23,9 @@
             background: #0a0a0f;
             color: #fff;
             overflow-x: hidden;
-            cursor: default;
         }
 
-        /* ========== PARTICLE BACKGROUND ========== */
+        /* Particle Background */
         #particles {
             position: fixed;
             top: 0;
@@ -40,7 +36,7 @@
             pointer-events: none;
         }
 
-        /* ========== SCROLLBAR ========== */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -51,11 +47,8 @@
             background: #605443;
             border-radius: 10px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8b6b54;
-        }
 
-        /* ========== PRELOADER ========== */
+        /* Preloader */
         .preloader {
             position: fixed;
             top: 0;
@@ -67,36 +60,21 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s, visibility 0.5s;
+            transition: opacity 0.5s;
         }
         .loader {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border: 3px solid #1a1a2e;
             border-top-color: #605443;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-        .loader::before {
-            content: '';
-            position: absolute;
-            width: 70px;
-            height: 70px;
-            border: 2px solid rgba(96,84,67,0.2);
-            border-radius: 50%;
-            top: -8px;
-            left: -8px;
-            animation: pulse 1.5s ease infinite;
-        }
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.1; }
-        }
 
-        /* ========== NAVIGATION ========== */
+        /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
@@ -109,7 +87,6 @@
             padding: 2rem;
             z-index: 1000;
             overflow-y: auto;
-            transition: all 0.4s ease;
         }
 
         .clock-box {
@@ -119,12 +96,7 @@
             border-radius: 15px;
             margin-bottom: 2rem;
             border: 1px solid rgba(96,84,67,0.3);
-            transition: all 0.3s;
             animation: glowPulse 2s ease-in-out infinite;
-        }
-        .clock-box:hover {
-            transform: scale(1.02);
-            border-color: #605443;
         }
         @keyframes glowPulse {
             0%, 100% { box-shadow: 0 0 5px rgba(96,84,67,0.2); }
@@ -155,13 +127,7 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto;
-            transition: all 0.4s ease;
             animation: float 3s ease-in-out infinite;
-        }
-        .profile-img:hover {
-            transform: scale(1.05);
-            border-color: #8b6b54;
-            box-shadow: 0 0 25px rgba(96,84,67,0.4);
         }
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
@@ -187,21 +153,6 @@
             padding: 0.7rem 1rem;
             border-radius: 12px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            left: -100%;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(96,84,67,0.2), transparent);
-            transition: left 0.5s;
-        }
-        .nav-link:hover::before {
-            left: 100%;
         }
         .nav-link:hover {
             color: #605443;
@@ -209,13 +160,15 @@
             transform: translateX(10px);
         }
 
-        /* ========== MAIN CONTENT ========== */
+        /* Main Content */
         .main-content {
             margin-left: 280px;
             padding: 2rem 4rem;
+            position: relative;
+            z-index: 1;
         }
 
-        /* ========== SECTIONS ========== */
+        /* Sections */
         .section {
             min-height: 100vh;
             padding: 5rem 0;
@@ -229,7 +182,6 @@
             font-size: 2.5rem;
             margin-bottom: 3rem;
             text-align: center;
-            position: relative;
         }
         .section-title span {
             color: #605443;
@@ -250,15 +202,10 @@
             50% { width: 100px; opacity: 1; }
         }
 
-        /* ========== ABOUT SECTION ========== */
+        /* About */
         .glow-text {
             font-size: 3.5rem;
             margin-bottom: 0.5rem;
-            animation: textGlow 3s ease-in-out infinite;
-        }
-        @keyframes textGlow {
-            0%, 100% { text-shadow: 0 0 5px rgba(96,84,67,0.3); }
-            50% { text-shadow: 0 0 20px rgba(96,84,67,0.6); }
         }
         .glow-text span {
             color: #605443;
@@ -275,7 +222,6 @@
             margin: 1.5rem 0;
         }
 
-        /* Info Cards */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -292,7 +238,7 @@
             border: 1px solid rgba(96,84,67,0.2);
         }
         .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-10px);
             background: rgba(96,84,67,0.15);
             border-color: #605443;
         }
@@ -300,13 +246,8 @@
             font-size: 2rem;
             color: #605443;
             margin-bottom: 1rem;
-            transition: transform 0.3s;
-        }
-        .info-card:hover i {
-            transform: scale(1.2);
         }
 
-        /* Tech Stack */
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
@@ -319,15 +260,12 @@
             border-radius: 50px;
             font-size: 0.8rem;
             transition: all 0.3s ease;
-            animation: fadeInUp 0.5s ease backwards;
-            animation-delay: calc(var(--i) * 0.05s);
         }
         .tech-tag:hover {
             background: #605443;
-            transform: scale(1.05) translateY(-3px);
+            transform: scale(1.05);
         }
 
-        /* Social Links */
         .social-links {
             display: flex;
             gap: 1rem;
@@ -348,10 +286,10 @@
         }
         .social-link:hover {
             background: #605443;
-            transform: translateY(-5px) rotate(360deg);
+            transform: translateY(-5px);
         }
 
-        /* ========== TIMELINE ========== */
+        /* Timeline */
         .timeline {
             position: relative;
             padding-left: 2rem;
@@ -369,16 +307,6 @@
             position: relative;
             margin-bottom: 2rem;
             padding-left: 2rem;
-            opacity: 0;
-            transform: translateX(-30px);
-            animation: slideInRight 0.6s ease forwards;
-            animation-delay: calc(var(--delay, 0) * 0.1s);
-        }
-        @keyframes slideInRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
         .timeline-dot {
             position: absolute;
@@ -389,6 +317,10 @@
             background: #605443;
             border-radius: 50%;
             animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
         }
         .timeline-content {
             background: rgba(26, 26, 46, 0.6);
@@ -402,8 +334,34 @@
             transform: translateX(10px);
             border-color: #605443;
         }
+        .timeline-date {
+            color: #605443;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .tech-used {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        .tech-used span {
+            background: #0a0a0f;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+        .grade-badge {
+            display: inline-block;
+            background: #605443;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-top: 0.8rem;
+        }
 
-        /* ========== PROJECT CARDS ========== */
+        /* Projects */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -415,30 +373,11 @@
             padding: 1.5rem;
             border-radius: 15px;
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
             border: 1px solid rgba(96,84,67,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(96,84,67,0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s;
-            opacity: 0;
-        }
-        .project-card:hover::before {
-            opacity: 1;
-            top: -30%;
-            left: -30%;
         }
         .project-card:hover {
-            transform: translateY(-15px) scale(1.02);
+            transform: translateY(-10px);
             border-color: #605443;
         }
         .project-icon {
@@ -450,22 +389,50 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 1rem;
-            transition: all 0.3s;
-        }
-        .project-card:hover .project-icon {
-            transform: scale(1.1) rotate(360deg);
-            background: #605443;
         }
         .project-icon i {
             font-size: 1.5rem;
             color: #605443;
-            transition: all 0.3s;
-        }
-        .project-card:hover .project-icon i {
-            color: white;
         }
 
-        /* ========== GALLERY ========== */
+        /* Skills */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .skills-category h3 {
+            color: #605443;
+            margin-bottom: 1rem;
+        }
+        .skills-category h3 i {
+            margin-right: 0.5rem;
+        }
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+            font-size: 0.8rem;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #605443, #8b6b54);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.2s ease;
+        }
+
+        /* Video Gallery */
         .filter-buttons {
             display: flex;
             justify-content: center;
@@ -486,103 +453,115 @@
             background: #605443;
             transform: scale(1.05);
         }
-        .gallery-grid {
+
+        .video-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
-        .gallery-item {
-            background: rgba(26, 26, 46, 0.6);
-            border-radius: 10px;
+        .video-card {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 15px;
             overflow: hidden;
-            aspect-ratio: 1 / 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(96, 84, 67, 0.3);
+        }
+        .video-card:hover {
+            transform: translateY(-8px);
+            border-color: #605443;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .video-thumb {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #1a1a2e;
+            overflow: hidden;
+        }
+        .video-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(96, 84, 67, 0.9);
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s;
-            border: 1px solid rgba(96,84,67,0.2);
+            transition: all 0.3s;
         }
-        .gallery-item:hover {
-            transform: scale(1.05);
-            border-color: #605443;
+        .play-btn i {
+            font-size: 1.8rem;
+            color: white;
+            margin-left: 5px;
         }
-        .gallery-item i {
-            font-size: 3rem;
-            color: #605443;
-            transition: transform 0.3s;
+        .video-card:hover .play-btn {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #605443;
         }
-        .gallery-item:hover i {
-            transform: scale(1.2);
+        .video-info {
+            padding: 1rem;
         }
-
-        /* ========== SKILLS WITH PROGRESS BARS ========== */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-        .skills-category h3 {
-            color: #605443;
-            margin-bottom: 1rem;
-        }
-        .skills-category h3 i {
-            margin-right: 0.5rem;
-        }
-        .skill-item {
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeInUp 0.5s ease forwards;
-            animation-delay: calc(var(--skill-delay, 0) * 0.05s);
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .skill-info {
-            display: flex;
-            justify-content: space-between;
+        .video-info h4 {
+            font-size: 1rem;
             margin-bottom: 0.3rem;
+        }
+        .video-info p {
             font-size: 0.8rem;
-        }
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .progress {
-            height: 100%;
-            background: linear-gradient(90deg, #605443, #8b6b54);
-            border-radius: 10px;
-            width: 0;
-            transition: width 1.2s cubic-bezier(0.22, 0.97, 0.36, 1.01);
-            position: relative;
-            overflow: hidden;
-        }
-        .progress::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer {
-            100% { left: 100%; }
+            color: #aaa;
         }
 
-        /* ========== AWARDS ========== */
+        /* Video Modal */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        .video-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .video-modal-content {
+            width: 90%;
+            max-width: 900px;
+            position: relative;
+        }
+        .video-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .video-modal-content iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 10px;
+        }
+
+        /* Awards */
         .awards-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -600,6 +579,9 @@
             transform: translateY(-5px);
             border-color: #605443;
         }
+        .award-list {
+            list-style: none;
+        }
         .award-list li {
             padding: 0.3rem 0;
             font-size: 0.8rem;
@@ -607,14 +589,12 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all 0.3s;
         }
-        .award-list li:hover {
-            transform: translateX(5px);
-            color: #fff;
+        .award-list li i {
+            color: #605443;
         }
 
-        /* ========== FOOTER ========== */
+        /* Footer */
         .footer {
             text-align: center;
             padding: 2rem;
@@ -624,7 +604,7 @@
             font-size: 0.8rem;
         }
 
-        /* ========== RESPONSIVE ========== */
+        /* Responsive */
         @media (max-width: 992px) {
             .navbar {
                 width: 100%;
@@ -661,7 +641,7 @@
                 margin-left: 0;
                 padding: 6rem 1.5rem 2rem;
             }
-            .info-grid, .projects-grid, .gallery-grid, .skills-container, .awards-grid {
+            .info-grid, .projects-grid, .skills-container, .awards-grid, .video-grid {
                 grid-template-columns: 1fr;
             }
             .glow-text {
@@ -737,19 +717,19 @@
             </div>
 
             <div class="tech-stack">
-                <span class="tech-tag" style="--i:1">PHP</span>
-                <span class="tech-tag" style="--i:2">C</span>
-                <span class="tech-tag" style="--i:3">C++</span>
-                <span class="tech-tag" style="--i:4">C#</span>
-                <span class="tech-tag" style="--i:5">Python</span>
-                <span class="tech-tag" style="--i:6">HTML/CSS</span>
-                <span class="tech-tag" style="--i:7">JavaScript</span>
-                <span class="tech-tag" style="--i:8">MySQL</span>
-                <span class="tech-tag" style="--i:9">MongoDB</span>
-                <span class="tech-tag" style="--i:10">Blender 3D</span>
-                <span class="tech-tag" style="--i:11">Photoshop</span>
-                <span class="tech-tag" style="--i:12">After Effects</span>
-                <span class="tech-tag" style="--i:13">Git</span>
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">C</span>
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">C#</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">HTML/CSS</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Blender 3D</span>
+                <span class="tech-tag">Photoshop</span>
+                <span class="tech-tag">After Effects</span>
+                <span class="tech-tag">Git</span>
             </div>
 
             <div class="social-links">
@@ -768,7 +748,7 @@
         <div class="container">
             <h2 class="section-title">Work <span>Experience</span></h2>
             <div class="timeline">
-                <div class="timeline-item" style="--delay:1">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">2024</div>
                     <div class="timeline-content">
@@ -779,13 +759,13 @@
                         <div class="grade-badge">19/20</div>
                     </div>
                 </div>
-                <div class="timeline-item" style="--delay:2">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">2021</div>
                     <div class="timeline-content">
                         <h3>Estágio Profissional</h3>
                         <h4>Prologica | Empoderando</h4>
-                        <p>Integrado no projeto de um site, responsável por registar produtos na base de dados e instalar remotamente atualizações Windows, correções e softwares.</p>
+                        <p>Integrado no projeto de um site, responsável por registar produtos na base de dados e instalar remotamente atualizações Windows.</p>
                         <div class="tech-used"><span>HTML</span><span>CSS</span><span>PHP</span><span>MySQL</span></div>
                         <div class="grade-badge">20/20</div>
                     </div>
@@ -818,24 +798,18 @@
         </div>
     </section>
 
-        <!-- Media Section (Melhorada) -->
+    <!-- Media Section with YouTube Videos -->
     <section class="section" id="media">
         <div class="container">
             <h2 class="section-title">Media <span>Gallery</span></h2>
             
-            <!-- Filtros -->
             <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">📷 All</button>
-                <button class="filter-btn" data-filter="image">🖼️ Imagens</button>
+                <button class="filter-btn active" data-filter="all">📷 Todos</button>
                 <button class="filter-btn" data-filter="video">🎬 Vídeos</button>
-                <button class="filter-btn" data-filter="3d">🎨 3D Models</button>
             </div>
 
-            <!-- Galeria de Imagens -->
-            <div id="imageGallery" class="gallery-grid" style="display: none;"></div>
-            
-            <!-- Galeria de Vídeos -->
-            <div id="videoGallery" class="video-grid" style="display: none;"></div>
+            <!-- Video Gallery Container -->
+            <div id="videoContainer"></div>
         </div>
     </section>
 
@@ -845,26 +819,24 @@
             <h2 class="section-title">Technical <span>Skills</span></h2>
             <div class="skills-container">
                 <div class="skills-category">
-                    <h3><i class="fas fa-code"></i> Programming & Web</h3>
-                    <div class="skill-item" style="--skill-delay:1"><div class="skill-info"><span>PHP</span><span>75%</span></div><div class="progress-bar"><div class="progress" data-width="75"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:2"><div class="skill-info"><span>HTML / CSS</span><span>80%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:3"><div class="skill-info"><span>JavaScript</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:4"><div class="skill-info"><span>Python</span><span>65%</span></div><div class="progress-bar"><div class="progress" data-width="65"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:5"><div class="skill-info"><span>C# / .NET</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
+                    <h3><i class="fas fa-code"></i> Programming</h3>
+                    <div class="skill-item"><div class="skill-info"><span>PHP</span><span>75%</span></div><div class="progress-bar"><div class="progress" data-width="75"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>HTML/CSS</span><span>80%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>JavaScript</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>Python</span><span>65%</span></div><div class="progress-bar"><div class="progress" data-width="65"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>C# / .NET</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
                 </div>
                 <div class="skills-category">
-                    <h3><i class="fas fa-palette"></i> Multimedia & Design</h3>
-                    <div class="skill-item" style="--skill-delay:6"><div class="skill-info"><span>Blender 3D</span><span>90%</span></div><div class="progress-bar"><div class="progress" data-width="90"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:7"><div class="skill-info"><span>Adobe Photoshop</span><span>85%</span></div><div class="progress-bar"><div class="progress" data-width="85"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:8"><div class="skill-info"><span>After Effects</span><span>80%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:9"><div class="skill-info"><span>Canvas / Moqups</span><span>75%</span></div><div class="progress-bar"><div class="progress" data-width="75"></div></div></div>
+                    <h3><i class="fas fa-palette"></i> Multimedia</h3>
+                    <div class="skill-item"><div class="skill-info"><span>Blender 3D</span><span>90%</span></div><div class="progress-bar"><div class="progress" data-width="90"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>Photoshop</span><span>85%</span></div><div class="progress-bar"><div class="progress" data-width="85"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>After Effects</span><span>80%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
                 </div>
                 <div class="skills-category">
                     <h3><i class="fas fa-database"></i> Databases & Tools</h3>
-                    <div class="skill-item" style="--skill-delay:10"><div class="skill-info"><span>MySQL / SQL</span><span>75%</span></div><div class="progress-bar"><div class="progress" data-width="75"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:11"><div class="skill-info"><span>MongoDB</span><span>60%</span></div><div class="progress-bar"><div class="progress" data-width="60"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:12"><div class="skill-info"><span>Git / GitHub</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
-                    <div class="skill-item" style="--skill-delay:13"><div class="skill-info"><span>Bootstrap</span><span>75%</span></div><div class="progress-bar"><div class="progress" data-width="75"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>MySQL</span><span>75%</span></div><div class="progress-bar"><div class="progress" data-width="75"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>MongoDB</span><span>60%</span></div><div class="progress-bar"><div class="progress" data-width="60"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>Git</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
                 </div>
             </div>
         </div>
@@ -875,21 +847,21 @@
         <div class="container">
             <h2 class="section-title">Academic <span>Education</span></h2>
             <div class="timeline">
-                <div class="timeline-item" style="--delay:1">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">2021 - 2024</div>
                     <div class="timeline-content">
                         <h3>Licenciatura em Engenharia Multimédia</h3>
-                        <h4>ISTEC – Instituto Superior de Tecnologias Avançadas</h4>
+                        <h4>ISTEC</h4>
                         <p>Classificação final: 15/20</p>
                     </div>
                 </div>
-                <div class="timeline-item" style="--delay:2">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">2017 - 2020</div>
                     <div class="timeline-content">
-                        <h3>Curso Técnico de Gestão e Programação de Sistemas Informáticos (TGPSI)</h3>
-                        <h4>ESA – Escola Secundária da Amadora</h4>
+                        <h3>Curso Técnico de Gestão e Programação (TGPSI)</h3>
+                        <h4>ESA</h4>
                         <p>Classificação final: 15/20</p>
                     </div>
                 </div>
@@ -915,7 +887,6 @@
                         <li><i class="fas fa-check-circle"></i> Blender 3D</li>
                         <li><i class="fas fa-check-circle"></i> Adobe After Effects</li>
                         <li><i class="fas fa-check-circle"></i> Adobe Photoshop</li>
-                        <li><i class="fas fa-check-circle"></i> Canvas / Moqups</li>
                     </ul>
                 </div>
             </div>
@@ -923,7 +894,7 @@
     </section>
 
     <footer class="footer">
-        <p>&copy; 2024 Miguel Lamego. All rights reserved.</p>
+        <p>&copy; 2024 Miguel Lamego. Todos os direitos reservados.</p>
     </footer>
 </main>
 
@@ -943,53 +914,55 @@
 
     // ========== PARTICLE BACKGROUND ==========
     const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    
-    function initParticles() {
-        particles = [];
-        for (let i = 0; i < 80; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 1,
-                alpha: Math.random() * 0.5 + 0.2,
-                speedX: (Math.random() - 0.5) * 0.3,
-                speedY: (Math.random() - 0.5) * 0.3
-            });
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-    }
-    
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let p of particles) {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(96, 84, 67, ${p.alpha})`;
-            ctx.fill();
-            p.x += p.speedX;
-            p.y += p.speedY;
-            if (p.x < 0) p.x = canvas.width;
-            if (p.x > canvas.width) p.x = 0;
-            if (p.y < 0) p.y = canvas.height;
-            if (p.y > canvas.height) p.y = 0;
+        
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 80; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    alpha: Math.random() * 0.5 + 0.2,
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    speedY: (Math.random() - 0.5) * 0.3
+                });
+            }
         }
-        requestAnimationFrame(animateParticles);
-    }
-    
-    window.addEventListener('resize', () => {
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(96, 84, 67, ${p.alpha})`;
+                ctx.fill();
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+        
         resizeCanvas();
         initParticles();
-    });
-    
-    resizeCanvas();
-    initParticles();
-    animateParticles();
+        animateParticles();
+    }
 
     // ========== CLOCK ==========
     function updateClock() {
@@ -1057,46 +1030,107 @@
     window.addEventListener('scroll', animateProgress);
     window.addEventListener('load', animateProgress);
 
-    // ========== GALLERY ==========
-    const galleryItems = {
-        all: [
-            { icon: 'fas fa-cube', name: 'Modelo 3D', category: '3d' },
-            { icon: 'fas fa-cube', name: 'Modelo 3D', category: '3d' },
-            { icon: 'fas fa-cube', name: 'Modelo 3D', category: '3d' },
-            { icon: 'fas fa-video', name: 'Animação', category: 'video' },
-            { icon: 'fas fa-video', name: 'Animação', category: 'video' },
-            { icon: 'fas fa-palette', name: 'Design', category: 'design' },
-            { icon: 'fas fa-palette', name: 'Design', category: 'design' },
-            { icon: 'fas fa-palette', name: 'Design', category: 'design' }
-        ]
-    };
-
-    function renderGallery(filter = 'all') {
-        const container = document.getElementById('galleryGrid');
-        if (!container) return;
-        container.innerHTML = '';
-        let items = galleryItems.all;
-        if (filter !== 'all') {
-            items = galleryItems.all.filter(item => item.category === filter);
+    // ========== VÍDEOS DO YOUTUBE ==========
+    const videos = [
+        {
+            id: "TSrK_4j9Uw0",
+            title: "Projeto 1 - Animação 3D",
+            description: "Trabalho desenvolvido no Blender"
+        },
+        {
+            id: "3eiycVUwRTM",
+            title: "Projeto 2 - Edição de Vídeo",
+            description: "Edição e pós-produção no After Effects"
         }
-        items.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = 'gallery-item';
-            div.style.animation = `fadeInUp 0.5s ease forwards`;
-            div.style.animationDelay = `${idx * 0.05}s`;
-            div.innerHTML = `<i class="${item.icon}"></i><span>${item.name}</span>`;
-            container.appendChild(div);
+    ];
+
+    function abrirVideo(videoId, titulo) {
+        const modal = document.createElement('div');
+        modal.className = 'video-modal';
+        modal.innerHTML = `
+            <div class="video-modal-content">
+                <button class="video-modal-close">&times;</button>
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+                <p style="margin-top: 1rem; text-align: center; color: white;">${titulo}</p>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => modal.classList.add('active'), 10);
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('video-modal-close')) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.remove();
+                    document.body.style.overflow = '';
+                }, 300);
+            }
         });
     }
 
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderGallery(btn.getAttribute('data-filter'));
+    function carregarVideos() {
+        const container = document.getElementById('videoContainer');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        container.className = 'video-grid';
+        
+        videos.forEach(video => {
+            const thumbnailUrl = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
+            
+            const card = document.createElement('div');
+            card.className = 'video-card';
+            card.innerHTML = `
+                <div class="video-thumb">
+                    <img src="${thumbnailUrl}" alt="${video.title}">
+                    <div class="play-btn">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h4>${video.title}</h4>
+                    <p>${video.description}</p>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => abrirVideo(video.id, video.title));
+            container.appendChild(card);
         });
-    });
-    renderGallery('all');
+    }
+
+    // Filtros
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const videoContainer = document.getElementById('videoContainer');
+
+    if (filterBtns.length && videoContainer) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                if (filter === 'video') {
+                    videoContainer.style.display = 'grid';
+                    carregarVideos();
+                } else {
+                    videoContainer.style.display = 'none';
+                }
+            });
+        });
+    }
+    
+    // Inicializar
+    if (videoContainer) {
+        videoContainer.style.display = 'none';
+    }
 
     // ========== SMOOTH SCROLL ==========
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -1107,18 +1141,7 @@
         });
     });
 
-    // ========== REVEAL ANIMATIONS ON SCROLL ==========
-    const revealElements = document.querySelectorAll('.info-card, .project-card, .award-category, .timeline-content');
-    function revealOnScroll() {
-        revealElements.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
-                el.classList.add('revealed');
-            }
-        });
-    }
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
+    console.log('✅ Portfólio carregado com sucesso!');
 </script>
 </body>
 </html>
