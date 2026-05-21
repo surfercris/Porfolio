@@ -156,9 +156,11 @@ window.addEventListener('load', revealOnScroll);
 // ===== CONFIGURAÇÃO - EDITA AQUI OS TEUS FICHEIROS =====
 
 // Lista de Imagens (adiciona as tuas imagens aqui)
-const images = [
-    { src: "assets/teste.png", title: "Trabalho 3D", category: "3d" },
-    { src: "assets/imagem2.jpg", title: "Design Gráfico", category: "design" },
+const imagens = [
+    { src: "assets/teste.png", titulo: "Meu Trabalho 1", descricao: "Teste", tipo: "image" },
+   
+    // ADICIONA MAIS AQUI
+];
     // ADICIONA MAIS IMAGENS AQUI:
     // { src: "assets/nova-imagem.jpg", title: "Título da imagem", category: "3d" },
 ];
