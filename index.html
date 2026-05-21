@@ -5,516 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miguel Lamego | Portfólio</title>
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #0a0a0f;
-            color: #fff;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: #0a0a0f; color: #fff; }
 
         /* Navigation */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 260px;
-            height: 100vh;
-            background: #0f0f1a;
-            border-right: 1px solid #222;
-            padding: 2rem;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 260px; height: 100vh;
+            background: #0f0f1a; border-right: 1px solid #222; padding: 2rem; z-index: 1000;
         }
-
-        .clock-box {
-            text-align: center;
-            padding: 1rem;
-            background: #1a1a2e;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-        }
-
-        .clock {
-            font-size: 1.2rem;
-            font-weight: 600;
-            font-family: monospace;
-        }
-
-        .date {
-            font-size: 0.7rem;
-            opacity: 0.7;
-        }
-
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            background: #1a1a2e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 2rem;
-            border: 3px solid #605443;
-        }
-
-        .profile-img i {
-            font-size: 3rem;
-            color: #605443;
-        }
-
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-item {
-            margin: 1rem 0;
-        }
-
-        .nav-link {
-            color: #aaa;
-            text-decoration: none;
-            display: block;
-            padding: 0.5rem;
-            transition: 0.3s;
-        }
-
-        .nav-link:hover {
-            color: #605443;
-            padding-left: 10px;
-        }
+        .clock-box { text-align: center; padding: 1rem; background: #1a1a2e; border-radius: 15px; margin-bottom: 2rem; }
+        .clock { font-size: 1.2rem; font-weight: 600; font-family: monospace; }
+        .date { font-size: 0.7rem; opacity: 0.7; }
+        .profile-img { width: 120px; height: 120px; background: #1a1a2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; border: 3px solid #605443; }
+        .profile-img i { font-size: 3rem; color: #605443; }
+        .nav-menu { list-style: none; }
+        .nav-item { margin: 1rem 0; }
+        .nav-link { color: #aaa; text-decoration: none; display: block; padding: 0.5rem; transition: 0.3s; }
+        .nav-link:hover { color: #605443; padding-left: 10px; }
 
         /* Main Content */
-        .main-content {
-            margin-left: 260px;
-            padding: 2rem;
-        }
-
-        .section {
-            min-height: 100vh;
-            padding: 4rem 0;
-            border-bottom: 1px solid #1a1a2e;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .section-title span {
-            color: #605443;
-        }
+        .main-content { margin-left: 260px; padding: 2rem; }
+        .section { min-height: 100vh; padding: 4rem 0; border-bottom: 1px solid #1a1a2e; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .section-title { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
+        .section-title span { color: #605443; }
 
         /* About */
-        .glow-text {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .glow-text span {
-            color: #605443;
-        }
-
-        .typed-text {
-            color: #605443;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .lead-text {
-            color: #aaa;
-            line-height: 1.6;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .info-card {
-            background: #1a1a2e;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .info-card i {
-            font-size: 1.5rem;
-            color: #605443;
-            margin-bottom: 0.5rem;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .tech-tag {
-            background: #1a1a2e;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: #1a1a2e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .social-link:hover {
-            background: #605443;
-        }
+        .glow-text { font-size: 3rem; margin-bottom: 0.5rem; }
+        .glow-text span { color: #605443; }
+        .typed-text { color: #605443; font-size: 1.2rem; margin-bottom: 1rem; }
+        .lead-text { color: #aaa; line-height: 1.6; }
+        .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
+        .info-card { background: #1a1a2e; padding: 1rem; border-radius: 10px; text-align: center; }
+        .info-card i { font-size: 1.5rem; color: #605443; margin-bottom: 0.5rem; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
+        .tech-tag { background: #1a1a2e; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; }
+        .social-links { display: flex; gap: 1rem; }
+        .social-link { width: 40px; height: 40px; background: #1a1a2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; }
+        .social-link:hover { background: #605443; }
 
         /* Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 2px;
-            height: 100%;
-            background: #605443;
-        }
-
-        .timeline-item {
-            margin-bottom: 2rem;
-            padding-left: 2rem;
-            position: relative;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -2.1rem;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            background: #605443;
-            border-radius: 50%;
-        }
-
-        .timeline-content {
-            background: #1a1a2e;
-            padding: 1rem;
-            border-radius: 10px;
-        }
-
-        .timeline-date {
-            color: #605443;
-            font-size: 0.7rem;
-        }
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: #605443; }
+        .timeline-item { margin-bottom: 2rem; padding-left: 2rem; position: relative; }
+        .timeline-dot { position: absolute; left: -2.1rem; top: 0; width: 12px; height: 12px; background: #605443; border-radius: 50%; }
+        .timeline-content { background: #1a1a2e; padding: 1rem; border-radius: 10px; }
+        .timeline-date { color: #605443; font-size: 0.7rem; }
+        .grade-badge { display: inline-block; background: #605443; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; margin-top: 0.5rem; }
 
         /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
-
-        .project-card {
-            background: #1a1a2e;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .project-icon {
-            width: 50px;
-            height: 50px;
-            background: #0a0a0f;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-        }
-
-        .project-icon i {
-            font-size: 1.2rem;
-            color: #605443;
-        }
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .project-card { background: #1a1a2e; padding: 1rem; border-radius: 10px; text-align: center; }
+        .project-icon { width: 50px; height: 50px; background: #0a0a0f; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+        .project-icon i { font-size: 1.2rem; color: #605443; }
 
         /* Skills */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
+        .skills-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .skills-category h3 { color: #605443; margin-bottom: 1rem; font-size: 1.1rem; }
+        .skill-item { margin-bottom: 1rem; }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 0.3rem; font-size: 0.8rem; }
+        .progress-bar { width: 100%; height: 5px; background: #1a1a2e; border-radius: 10px; }
+        .progress { height: 100%; background: #605443; border-radius: 10px; width: 0%; }
 
-        .skills-category h3 {
-            color: #605443;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .skill-item {
-            margin-bottom: 1rem;
-        }
-
-        .skill-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.3rem;
-            font-size: 0.8rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 5px;
-            background: #1a1a2e;
-            border-radius: 10px;
-        }
-
-        .progress {
-            height: 100%;
-            background: #605443;
-            border-radius: 10px;
-            width: 0%;
-        }
-
-        /* Video Gallery - VERSÃO SIMPLES */
-        .filter-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .filter-btn {
-            background: #1a1a2e;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background: #605443;
-        }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .video-card {
-            background: #1a1a2e;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-
-        .video-thumb {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #0a0a0f;
-        }
-
-        .video-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(96,84,67,0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .play-btn i {
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        .video-info {
-            padding: 0.8rem;
-        }
-
-        .video-info h4 {
-            font-size: 0.9rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .video-info p {
-            font-size: 0.7rem;
-            color: #aaa;
-        }
+        /* Gallery - Imagens + Vídeos */
+        .filter-buttons { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .filter-btn { background: #1a1a2e; border: none; padding: 0.5rem 1.5rem; border-radius: 30px; color: white; cursor: pointer; transition: 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: #605443; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+        .gallery-card { background: #1a1a2e; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .gallery-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .gallery-thumb { position: relative; width: 100%; aspect-ratio: 16/9; background: #0a0a0f; }
+        .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .play-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(96,84,67,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .play-overlay i { font-size: 1.2rem; color: white; }
+        .gallery-info { padding: 0.8rem; }
+        .gallery-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
+        .gallery-info p { font-size: 0.7rem; color: #aaa; }
 
         /* Awards */
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
+        .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .award-category { background: #1a1a2e; padding: 1rem; border-radius: 10px; }
+        .award-category h3 { font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .award-list { list-style: none; }
+        .award-list li { font-size: 0.7rem; color: #aaa; padding: 0.2rem 0; display: flex; align-items: center; gap: 0.5rem; }
+        .award-list li i { color: #605443; font-size: 0.6rem; }
 
-        .award-category {
-            background: #1a1a2e;
-            padding: 1rem;
-            border-radius: 10px;
-        }
+        .footer { text-align: center; padding: 2rem; color: #555; font-size: 0.7rem; }
 
-        .award-category h3 {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
+        /* Modal para vídeos */
+        .video-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; }
+        .video-modal.active { opacity: 1; visibility: visible; }
+        .video-modal-content { width: 90%; max-width: 800px; position: relative; }
+        .video-modal-close { position: absolute; top: -35px; right: 0; font-size: 25px; color: white; cursor: pointer; background: none; border: none; }
+        .video-modal-content iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; }
 
-        .award-list {
-            list-style: none;
-        }
+        /* Lightbox para imagens */
+        .lightbox-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; }
+        .lightbox-modal.active { opacity: 1; visibility: visible; }
+        .lightbox-content { max-width: 90%; max-height: 90%; text-align: center; }
+        .lightbox-content img { max-width: 100%; max-height: 80vh; border-radius: 10px; }
+        .lightbox-close { position: absolute; top: 20px; right: 40px; font-size: 35px; color: white; cursor: pointer; }
 
-        .award-list li {
-            font-size: 0.7rem;
-            color: #aaa;
-            padding: 0.2rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .award-list li i {
-            color: #605443;
-            font-size: 0.6rem;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            color: #555;
-            font-size: 0.7rem;
-        }
-
-        /* Modal */
-        .video-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.3s;
-        }
-
-        .video-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .video-modal-content {
-            width: 90%;
-            max-width: 800px;
-            position: relative;
-        }
-
-        .video-modal-close {
-            position: absolute;
-            top: -35px;
-            right: 0;
-            font-size: 25px;
-            color: white;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .video-modal-content iframe {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 10px;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .navbar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            .info-grid, .projects-grid, .skills-container, .awards-grid {
-                grid-template-columns: 1fr;
-            }
-            .glow-text {
-                font-size: 2rem;
-            }
+            .navbar { width: 100%; height: auto; position: relative; }
+            .main-content { margin-left: 0; }
+            .info-grid, .projects-grid, .skills-container, .awards-grid, .gallery-grid { grid-template-columns: 1fr; }
+            .glow-text { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- Navigation -->
 <nav class="navbar">
     <div class="clock-box">
         <div class="clock" id="clock">--:--:--</div>
         <div class="date" id="date">Carregando...</div>
     </div>
-    <div class="profile-img">
-        <i class="fas fa-user-circle"></i>
-    </div>
+    <div class="profile-img"><i class="fas fa-user-circle"></i></div>
     <ul class="nav-menu">
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
@@ -526,32 +137,24 @@
     </ul>
 </nav>
 
-<!-- Main Content -->
 <main class="main-content">
     
-    <!-- About -->
+    <!-- About Section -->
     <section class="section" id="about">
         <div class="container">
             <h1 class="glow-text">Miguel <span>Lamego</span></h1>
             <div class="typed-text" id="typedText"></div>
-            <p class="lead-text">
-                Engenheiro Multimédia especializado em animação 3D, edição de vídeo e desenvolvimento web. 
-                Apaixonado por criar soluções criativas e inovadoras.
-            </p>
-            
+            <p class="lead-text">Engenheiro Multimédia especializado em animação 3D, edição de vídeo e desenvolvimento web. Apaixonado por criar soluções criativas e inovadoras.</p>
             <div class="info-grid">
                 <div class="info-card"><i class="fas fa-graduation-cap"></i><h3>Licenciatura</h3><p>Engenharia Multimédia - 15/20</p></div>
                 <div class="info-card"><i class="fas fa-code"></i><h3>TGPSI</h3><p>Programação - 15/20</p></div>
                 <div class="info-card"><i class="fas fa-language"></i><h3>Idiomas</h3><p>Português, Inglês C1</p></div>
             </div>
-
             <div class="tech-stack">
                 <span class="tech-tag">PHP</span><span class="tech-tag">C#</span><span class="tech-tag">Python</span>
                 <span class="tech-tag">Blender</span><span class="tech-tag">Photoshop</span><span class="tech-tag">After Effects</span>
                 <span class="tech-tag">HTML/CSS</span><span class="tech-tag">JavaScript</span><span class="tech-tag">MySQL</span>
-                <span class="tech-tag">UX/UI</span><span class="tech-tag">Adobe Premiere</span><span class="tech-tag">PhotoShop</span>
             </div>
-
             <div class="social-links">
                 <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-github"></i></a>
@@ -559,7 +162,7 @@
         </div>
     </section>
 
-    <!-- Experience -->
+    <!-- Experience Section -->
     <section class="section" id="experience">
         <div class="container">
             <h2 class="section-title">Work <span>Experience</span></h2>
@@ -570,33 +173,34 @@
         </div>
     </section>
 
-    <!-- Projects -->
+    <!-- Projects Section -->
     <section class="section" id="projects">
         <div class="container">
             <h2 class="section-title">Featured <span>Projects</span></h2>
             <div class="projects-grid">
-                <div class="project-card"><div class="project-icon"><i class="fas fa-truck"></i></div><h3>CarretosComplexos</h3><p>Aplicação web para construção prédios</p></div>
-                <div class="project-card"><div class="project-icon"><i class="fas fa-exchange-alt"></i></div><h3>Alonsuus</h3><p>Aplicação web para Camiões e Trocas de produtos e equipamentos</p></div>
-                <div class="project-card"><div class="project-icon"><i class="fas fa-film"></i></div><h3>Animações 3D</h3><p>Criação no Blender,After Effects e edição de videos</p></div>
+                <div class="project-card"><div class="project-icon"><i class="fas fa-truck"></i></div><h3>CarretosComplexos</h3><p>Aplicação web para gestão de transportes</p></div>
+                <div class="project-card"><div class="project-icon"><i class="fas fa-exchange-alt"></i></div><h3>Alonsuus</h3><p>Aplicação web para trocas e partilhas</p></div>
+                <div class="project-card"><div class="project-icon"><i class="fas fa-film"></i></div><h3>Animações 3D</h3><p>Criação no Blender e After Effects</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Media - VÍDEOS AQUI -->
+    <!-- Media Gallery Section (Imagens + Vídeos) -->
     <section class="section" id="media">
         <div class="container">
             <h2 class="section-title">Media <span>Gallery</span></h2>
             
             <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="video">Vídeos</button>
+                <button class="filter-btn active" data-filter="all">📷 Todos</button>
+                <button class="filter-btn" data-filter="image">🖼️ Imagens</button>
+                <button class="filter-btn" data-filter="video">🎬 Vídeos</button>
             </div>
 
-            <div id="videoContainer"></div>
+            <div id="galleryContainer" class="gallery-grid"></div>
         </div>
     </section>
 
-    <!-- Skills -->
+    <!-- Skills Section -->
     <section class="section" id="skills">
         <div class="container">
             <h2 class="section-title">Technical <span>Skills</span></h2>
@@ -604,23 +208,22 @@
                 <div class="skills-category"><h3>💻 Programação</h3>
                     <div class="skill-item"><div class="skill-info"><span>PHP</span><span>75%</span></div><div class="progress-bar"><div class="progress" data-width="75"></div></div></div>
                     <div class="skill-item"><div class="skill-info"><span>HTML/CSS</span><span>80%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
-                    <div class="skill-item"><div class="skill-info"><span>Python</span><span>60%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
                     <div class="skill-item"><div class="skill-info"><span>JavaScript</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
-                    
+                    <div class="skill-item"><div class="skill-info"><span>Python</span><span>65%</span></div><div class="progress-bar"><div class="progress" data-width="65"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>C#</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
                 </div>
                 <div class="skills-category"><h3>🎨 Multimedia</h3>
                     <div class="skill-item"><div class="skill-info"><span>Blender 3D</span><span>90%</span></div><div class="progress-bar"><div class="progress" data-width="90"></div></div></div>
                     <div class="skill-item"><div class="skill-info"><span>Photoshop</span><span>85%</span></div><div class="progress-bar"><div class="progress" data-width="85"></div></div></div>
-                    <div class="skill-item"><div class="skill-info"><span>After Effects</span><span>90%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
-                    <div class="skill-item"><div class="skill-info"><span>UX/UI</span><span>60%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
-                    <div class="skill-item"><div class="skill-info"><span>Adobe Premiere</span><span>80%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
-                    
+                    <div class="skill-item"><div class="skill-info"><span>After Effects</span><span>80%</span></div><div class="progress-bar"><div class="progress" data-width="80"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>MySQL</span><span>75%</span></div><div class="progress-bar"><div class="progress" data-width="75"></div></div></div>
+                    <div class="skill-item"><div class="skill-info"><span>Git</span><span>70%</span></div><div class="progress-bar"><div class="progress" data-width="70"></div></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Education -->
+    <!-- Education Section -->
     <section class="section" id="education">
         <div class="container">
             <h2 class="section-title">Academic <span>Education</span></h2>
@@ -631,10 +234,10 @@
         </div>
     </section>
 
-    <!-- Awards -->
+    <!-- Awards Section -->
     <section class="section" id="awards">
         <div class="container">
-            <h2 class="section-title">Qualificações <span>e Skills</span></h2>
+            <h2 class="section-title">Certifications <span>& Awards</span></h2>
             <div class="awards-grid">
                 <div class="award-category"><h3>🏆 Estágios</h3><ul class="award-list"><li><i class="fas fa-check-circle"></i> Chipsite - 19/20</li><li><i class="fas fa-check-circle"></i> Prologica - 20/20</li></ul></div>
                 <div class="award-category"><h3>📜 Ferramentas</h3><ul class="award-list"><li><i class="fas fa-check-circle"></i> Blender 3D</li><li><i class="fas fa-check-circle"></i> After Effects</li><li><i class="fas fa-check-circle"></i> Photoshop</li></ul></div>
@@ -643,7 +246,7 @@
     </section>
 
     <footer class="footer">
-        <p>&copy; 2024 Miguel Lamego. Todos os direitos reservados.</p>
+        <p>&copy; 2025 Miguel Lamego. Todos os direitos reservados.</p>
     </footer>
 </main>
 
@@ -658,7 +261,7 @@
     updateClock();
 
     // ========== TEXTO DIGITADO ==========
-    const frases = ['Engenheiro Multimédia 🎨', '3D Artist 🎬', 'Video Editor ✂️', 'FullStack Developer 💻','BackEnd Developer </>'];
+    const frases = ['Engenheiro Multimédia 🎨', '3D Artist 🎬', 'Video Editor ✂️', 'FullStack Developer 💻'];
     let i = 0, j = 0, apagando = false;
     const typedEl = document.getElementById('typedText');
     function digitar() {
@@ -698,12 +301,28 @@
         });
     });
 
-    // ========== VÍDEOS DO YOUTUBE ==========
-    const meusVideos = [
-        { id: "TSrK_4j9Uw0", titulo: "Projeto 1 - Animação 3D,Edição de video ", descricao: "Trabalho desenvolvido no Blender e After Effects" },
-        { id: "3eiycVUwRTM", titulo: "Projeto 2 - Animação 3D,Edição de video ", descricao: "Trabalho desenvolvido no Blender e After Effects" }
+    // ========== DADOS DA GALERIA ==========
+    // --- ADICIONA AQUI AS TUAS IMAGENS ---
+    const imagens = [
+        { src: "assets/imagem1.jpg", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
+        { src: "assets/imagem2.jpg", titulo: "Meu Trabalho 2", descricao: "Design Gráfico", tipo: "image" },
+        { src: "assets/imagem3.jpg", titulo: "Meu Trabalho 3", descricao: "Animação", tipo: "image" }
+        // ADICIONA MAIS IMAGENS AQUI:
+        // { src: "assets/nome.jpg", titulo: "Título", descricao: "Descrição", tipo: "image" },
     ];
 
+    // --- ADICIONA AQUI OS TEUS VÍDEOS DO YOUTUBE ---
+    const videos = [
+        { id: "TSrK_4j9Uw0", titulo: "Projeto 1 - Animação 3D", descricao: "Trabalho desenvolvido no Blender", tipo: "video" },
+        { id: "3eiycVUwRTM", titulo: "Projeto 2 - Edição de Vídeo", descricao: "Edição no After Effects", tipo: "video" }
+        // ADICIONA MAIS VÍDEOS AQUI:
+        // { id: "ID_DO_VIDEO", titulo: "Título", descricao: "Descrição", tipo: "video" },
+    ];
+
+    // ========== FUNÇÕES DA GALERIA ==========
+    const galleryContainer = document.getElementById('galleryContainer');
+
+    // Abrir vídeo do YouTube
     function abrirVideo(id, titulo) {
         const modal = document.createElement('div');
         modal.className = 'video-modal';
@@ -725,50 +344,101 @@
         };
     }
 
-    function carregarVideos() {
-        const container = document.getElementById('videoContainer');
-        if (!container) return;
-        container.innerHTML = '';
-        container.className = 'video-grid';
-        meusVideos.forEach(video => {
+    // Abrir imagem em lightbox
+    function abrirImagem(src, titulo) {
+        const modal = document.createElement('div');
+        modal.className = 'lightbox-modal';
+        modal.innerHTML = `
+            <div class="lightbox-content">
+                <span class="lightbox-close">&times;</span>
+                <img src="${src}" alt="${titulo}">
+                <p style="margin-top: 1rem; color: white;">${titulo}</p>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => modal.classList.add('active'), 10);
+        modal.onclick = (e) => {
+            if (e.target === modal || e.target.classList.contains('lightbox-close')) {
+                modal.classList.remove('active');
+                setTimeout(() => { modal.remove(); document.body.style.overflow = ''; }, 300);
+            }
+        };
+    }
+
+    // Carregar galeria com filtro
+    function carregarGaleria(filtro = 'all') {
+        if (!galleryContainer) return;
+        galleryContainer.innerHTML = '';
+        
+        let itens = [];
+        
+        if (filtro === 'all') {
+            itens = [...imagens, ...videos];
+        } else if (filtro === 'image') {
+            itens = [...imagens];
+        } else if (filtro === 'video') {
+            itens = [...videos];
+        }
+        
+        if (itens.length === 0) {
+            galleryContainer.innerHTML = '<div style="text-align:center; padding:2rem;">Nenhum item encontrado</div>';
+            return;
+        }
+        
+        itens.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'video-card';
-            card.innerHTML = `
-                <div class="video-thumb">
-                    <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.titulo}">
-                    <div class="play-btn"><i class="fab fa-youtube"></i></div>
-                </div>
-                <div class="video-info">
-                    <h4>${video.titulo}</h4>
-                    <p>${video.descricao}</p>
-                </div>
-            `;
-            card.onclick = () => abrirVideo(video.id, video.titulo);
-            container.appendChild(card);
+            card.className = 'gallery-card';
+            
+            if (item.tipo === 'video') {
+                // Card de vídeo
+                card.innerHTML = `
+                    <div class="gallery-thumb">
+                        <img src="https://img.youtube.com/vi/${item.id}/hqdefault.jpg" alt="${item.titulo}">
+                        <div class="play-overlay"><i class="fab fa-youtube"></i></div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>🎬 ${item.titulo}</h4>
+                        <p>${item.descricao}</p>
+                    </div>
+                `;
+                card.onclick = () => abrirVideo(item.id, item.titulo);
+            } else {
+                // Card de imagem
+                card.innerHTML = `
+                    <div class="gallery-thumb">
+                        <img src="${item.src}" alt="${item.titulo}" onerror="this.src='https://placehold.co/400x300/1a1a2e/605443?text=Imagem'">
+                    </div>
+                    <div class="gallery-info">
+                        <h4>📷 ${item.titulo}</h4>
+                        <p>${item.descricao}</p>
+                    </div>
+                `;
+                card.onclick = () => abrirImagem(item.src, item.titulo);
+            }
+            
+            galleryContainer.appendChild(card);
         });
     }
 
-    // FILTROS
+    // ========== FILTROS ==========
     const botoes = document.querySelectorAll('.filter-btn');
-    const videoContainer = document.getElementById('videoContainer');
-
-    if (botoes.length && videoContainer) {
+    
+    if (botoes.length) {
         botoes.forEach(btn => {
             btn.addEventListener('click', () => {
                 botoes.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                if (btn.getAttribute('data-filter') === 'video') {
-                    videoContainer.style.display = 'grid';
-                    carregarVideos();
-                } else {
-                    videoContainer.style.display = 'none';
-                }
+                const filtro = btn.getAttribute('data-filter');
+                carregarGaleria(filtro);
             });
         });
     }
-    if (videoContainer) videoContainer.style.display = 'none';
+    
+    // Inicializar galeria
+    carregarGaleria('all');
 
-    console.log('✅ Site carregado! Vídeos prontos.');
+    console.log('✅ Portfólio carregado!');
 </script>
 </body>
 </html>
