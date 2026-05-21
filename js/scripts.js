@@ -157,7 +157,7 @@ window.addEventListener('load', revealOnScroll);
 
 // Lista de Imagens (adiciona as tuas imagens aqui)
 const images = [
-    { src: "assets/imagem1.jpg", title: "Trabalho 3D", category: "3d" },
+    { src: "assets/teste.png", title: "Trabalho 3D", category: "3d" },
     { src: "assets/imagem2.jpg", title: "Design Gráfico", category: "design" },
     // ADICIONA MAIS IMAGENS AQUI:
     // { src: "assets/nova-imagem.jpg", title: "Título da imagem", category: "3d" },
