@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* ========== VARIÁVEIS PARA DARK/LIGHT MODE ========== */
+        /* ========== VARIÁVEIS ========== */
         :root {
             --bg-primary: #0a0a0f;
             --bg-secondary: #0f0f1a;
@@ -59,7 +59,7 @@
         /* Theme Toggle Button */
         .theme-toggle {
             position: fixed;
-            bottom: 20px;
+            bottom: 80px;
             right: 20px;
             width: 50px;
             height: 50px;
@@ -79,6 +79,92 @@
             transform: scale(1.1);
             background: var(--accent-hover);
         }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            transition: 0.3s;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8);
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+        .back-to-top:hover {
+            transform: scale(1.1);
+            background: var(--accent-hover);
+        }
+        
+        /* Visitor Counter */
+        .visitor-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1001;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+        }
+        .visitor-counter i {
+            color: var(--accent-color);
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 12px;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .skeleton-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .skeleton-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        .skeleton-text {
+            height: 15px;
+            background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        .skeleton-text.short { width: 60%; }
+        .skeleton-text.long { width: 90%; }
 
         /* Navigation */
         .navbar {
@@ -294,7 +380,10 @@
             .info-grid, .projects-grid, .skills-container, .awards-grid, .gallery-grid { grid-template-columns: 1fr; }
             .glow-text { font-size: 2rem; }
             .timeline { padding-left: 1rem; }
-            .theme-toggle { bottom: 70px; right: 15px; width: 40px; height: 40px; font-size: 1.2rem; }
+            .visitor-counter { bottom: 80px; left: 10px; font-size: 0.7rem; }
+            .back-to-top, .theme-toggle { width: 40px; height: 40px; font-size: 1.2rem; }
+            .back-to-top { bottom: 10px; right: 10px; }
+            .theme-toggle { bottom: 60px; right: 10px; }
         }
     </style>
 </head>
@@ -303,9 +392,21 @@
 <!-- Particle Background -->
 <canvas id="particles"></canvas>
 
+<!-- Visitor Counter -->
+<div class="visitor-counter" id="visitorCounter">
+    <i class="fas fa-eye"></i>
+    <span id="visitorCount">0</span>
+    <span>visitas</span>
+</div>
+
 <!-- Theme Toggle Button -->
 <button class="theme-toggle" id="themeToggle">
     <i class="fas fa-moon"></i>
+</button>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
 </button>
 
 <nav class="navbar">
@@ -334,7 +435,6 @@
             <div class="typed-text" id="typedText"></div>
             <p class="lead-text">Engenheiro Multimédia especializado em animação 3D, edição de vídeo e desenvolvimento web. Apaixonado por criar soluções criativas e inovadoras.</p>
             
-            <!-- Botão Download CV -->
             <a href="assets/cv-miguel-lamego.pdf" download class="btn-cv">
                 <i class="fas fa-download"></i> Download CV (PDF)
             </a>
@@ -367,7 +467,7 @@
         </div>
     </section>
 
-    <!-- Projects Section COM LINKS E TECNOLOGIAS -->
+    <!-- Projects Section -->
     <section class="section" id="projects">
         <div class="container">
             <h2 class="section-title">Featured <span>Projects</span></h2>
@@ -376,35 +476,22 @@
                     <div class="project-icon"><i class="fas fa-truck"></i></div>
                     <h3>CarretosComplexos</h3>
                     <p>Aplicação web para gestão de transportes. FullStack developer com PHP e MySQL.</p>
-                    <div class="project-tech">
-                        <span>PHP</span><span>MySQL</span><span>JavaScript</span>
-                    </div>
-                    <a href="https://github.com/surfercris/carretoscomplexos" target="_blank" class="project-link">
-                        Ver Projeto <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="project-tech"><span>PHP</span><span>MySQL</span><span>JavaScript</span></div>
+                    <a href="#" target="_blank" class="project-link">Ver Projeto <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="project-card">
                     <div class="project-icon"><i class="fas fa-exchange-alt"></i></div>
                     <h3>Alonsuus</h3>
                     <p>Aplicação web para trocas e partilhas. Atualização de framework e Bootstrap 5.</p>
-                    <div class="project-tech">
-                        <span>PHP</span><span>Bootstrap 5</span><span>MySQL</span>
-                    </div>
-                    <a href="https://github.com/surfercris/alonsuus" target="_blank" class="project-link">
-                        Ver Projeto <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="project-tech"><span>PHP</span><span>Bootstrap 5</span><span>MySQL</span></div>
+                    <a href="#" target="_blank" class="project-link">Ver Projeto <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="project-card">
                     <div class="project-icon"><i class="fas fa-film"></i></div>
                     <h3>Animações 3D</h3>
                     <p>Criação de animações e modelos 3D com Blender, After Effects e Photoshop.</p>
-                    <div class="project-tech">
-                        <span>Blender</span><span>After Effects</span><span>Photoshop</span>
-                    </div>
-                     <!-- mudar link para video blender demo essencialmente oni mask --> 
-                    <a href="https://www.youtube.com/watch?v=TSrK_4j9Uw0" target="_blank" class="project-link">
-                        Ver Demo <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="project-tech"><span>Blender</span><span>After Effects</span><span>Photoshop</span></div>
+                    <a href="#" target="_blank" class="project-link">Ver Demo <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -419,7 +506,13 @@
                 <button class="filter-btn" data-filter="image">🖼️ Imagens</button>
                 <button class="filter-btn" data-filter="video">🎬 Vídeos</button>
             </div>
-            <div id="galleryContainer" class="gallery-grid"></div>
+            <!-- Loading Skeleton -->
+            <div id="skeletonContainer" class="gallery-grid">
+                <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
+                <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
+                <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
+            </div>
+            <div id="galleryContainer" class="gallery-grid" style="display: none;"></div>
         </div>
     </section>
 
@@ -474,6 +567,50 @@
 </main>
 
 <script>
+    // ========== CONTADOR DE VISITAS ==========
+    function updateVisitorCounter() {
+        let visits = localStorage.getItem('portfolioVisits');
+        if (visits === null) {
+            visits = 1;
+        } else {
+            visits = parseInt(visits) + 1;
+        }
+        localStorage.setItem('portfolioVisits', visits);
+        document.getElementById('visitorCount').textContent = visits;
+    }
+    updateVisitorCounter();
+
+    // ========== BACK TO TOP BUTTON ==========
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ========== LOADING SKELETON ==========
+    function showSkeleton() {
+        const skeleton = document.getElementById('skeletonContainer');
+        const gallery = document.getElementById('galleryContainer');
+        if (skeleton && gallery) {
+            skeleton.style.display = 'grid';
+            gallery.style.display = 'none';
+        }
+    }
+    function hideSkeleton() {
+        const skeleton = document.getElementById('skeletonContainer');
+        const gallery = document.getElementById('galleryContainer');
+        if (skeleton && gallery) {
+            skeleton.style.display = 'none';
+            gallery.style.display = 'grid';
+        }
+    }
+
     // ========== PARTICLE BACKGROUND ==========
     const canvas = document.getElementById('particles');
     if (canvas) {
@@ -565,7 +702,7 @@
     updateClock();
 
     // ========== TEXTO DIGITADO ==========
-    const frases = ['Engenheiro Multimédia 🎨', '3D Artist 🎬', 'Video Editor ✂️', 'FullStack Developer 💻', 'BackEnd Developer </>'];
+    const frases = ['Engenheiro Multimédia 🎨', '3D Artist 🎬', 'Video Editor ✂️', 'FullStack Developer 💻'];
     let i = 0, j = 0, apagando = false;
     const typedEl = document.getElementById('typedText');
     function digitar() {
@@ -607,9 +744,9 @@
 
     // ========== DADOS DA GALERIA ==========
     const imagens = [
-        { src: "assets/teste.png", titulo: "Teste 1", descricao: "Projeto no Blender", tipo: "image" },
-        { src: "assets/imagem2.jpg", titulo: "Teste 2", descricao: "Design Gráfico", tipo: "image" },
-        { src: "assets/imagem3.jpg", titulo: "Teste 3", descricao: "Animação", tipo: "image" }
+        { src: "assets/imagem1.jpg", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
+        { src: "assets/imagem2.jpg", titulo: "Meu Trabalho 2", descricao: "Design Gráfico", tipo: "image" },
+        { src: "assets/imagem3.jpg", titulo: "Meu Trabalho 3", descricao: "Animação", tipo: "image" }
     ];
 
     const videos = [
@@ -662,46 +799,51 @@
     }
 
     function carregarGaleria(filtro = 'all') {
-        if (!galleryContainer) return;
-        galleryContainer.innerHTML = '';
-        let itens = [];
-        if (filtro === 'all') { itens = [...imagens, ...videos]; }
-        else if (filtro === 'image') { itens = [...imagens]; }
-        else if (filtro === 'video') { itens = [...videos]; }
-        if (itens.length === 0) {
-            galleryContainer.innerHTML = '<div style="text-align:center; padding:2rem;">Nenhum item encontrado</div>';
-            return;
-        }
-        itens.forEach((item, index) => {
-            const card = document.createElement('div');
-            card.className = 'gallery-card';
-            card.style.animationDelay = `${index * 0.05}s`;
-            if (item.tipo === 'video') {
-                card.innerHTML = `
-                    <div class="gallery-thumb">
-                        <img src="https://img.youtube.com/vi/${item.id}/hqdefault.jpg" alt="${item.titulo}">
-                        <div class="play-overlay"><i class="fab fa-youtube"></i></div>
-                    </div>
-                    <div class="gallery-info">
-                        <h4>🎬 ${item.titulo}</h4>
-                        <p>${item.descricao}</p>
-                    </div>
-                `;
-                card.onclick = () => abrirVideo(item.id, item.titulo);
-            } else {
-                card.innerHTML = `
-                    <div class="gallery-thumb">
-                        <img src="${item.src}" alt="${item.titulo}" onerror="this.src='https://placehold.co/400x300/1a1a2e/605443?text=Imagem'">
-                    </div>
-                    <div class="gallery-info">
-                        <h4>📷 ${item.titulo}</h4>
-                        <p>${item.descricao}</p>
-                    </div>
-                `;
-                card.onclick = () => abrirImagem(item.src, item.titulo);
+        showSkeleton();
+        setTimeout(() => {
+            if (!galleryContainer) return;
+            galleryContainer.innerHTML = '';
+            let itens = [];
+            if (filtro === 'all') { itens = [...imagens, ...videos]; }
+            else if (filtro === 'image') { itens = [...imagens]; }
+            else if (filtro === 'video') { itens = [...videos]; }
+            if (itens.length === 0) {
+                galleryContainer.innerHTML = '<div style="text-align:center; padding:2rem;">Nenhum item encontrado</div>';
+                hideSkeleton();
+                return;
             }
-            galleryContainer.appendChild(card);
-        });
+            itens.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'gallery-card';
+                card.style.animationDelay = `${index * 0.05}s`;
+                if (item.tipo === 'video') {
+                    card.innerHTML = `
+                        <div class="gallery-thumb">
+                            <img src="https://img.youtube.com/vi/${item.id}/hqdefault.jpg" alt="${item.titulo}">
+                            <div class="play-overlay"><i class="fab fa-youtube"></i></div>
+                        </div>
+                        <div class="gallery-info">
+                            <h4>🎬 ${item.titulo}</h4>
+                            <p>${item.descricao}</p>
+                        </div>
+                    `;
+                    card.onclick = () => abrirVideo(item.id, item.titulo);
+                } else {
+                    card.innerHTML = `
+                        <div class="gallery-thumb">
+                            <img src="${item.src}" alt="${item.titulo}" onerror="this.src='https://placehold.co/400x300/1a1a2e/605443?text=Imagem'">
+                        </div>
+                        <div class="gallery-info">
+                            <h4>📷 ${item.titulo}</h4>
+                            <p>${item.descricao}</p>
+                        </div>
+                    `;
+                    card.onclick = () => abrirImagem(item.src, item.titulo);
+                }
+                galleryContainer.appendChild(card);
+            });
+            hideSkeleton();
+        }, 500);
     }
 
     const botoes = document.querySelectorAll('.filter-btn');
@@ -716,7 +858,7 @@
     }
     
     carregarGaleria('all');
-    console.log('✅ Portfólio carregado com partículas, Dark/Light Mode, Links e Download CV!');
+    console.log('✅ Portfólio carregado com contador de visitas, back to top e loading skeleton!');
 </script>
 </body>
 </html>
