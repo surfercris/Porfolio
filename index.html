@@ -9,97 +9,163 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* ========== VARIÁVEIS PARA DARK/LIGHT MODE ========== */
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #22223b;
+            --text-primary: #ffffff;
+            --text-secondary: #aaa;
+            --border-color: #222;
+            --accent-color: #605443;
+            --accent-hover: #8b6b54;
+            --shadow: rgba(0,0,0,0.3);
+        }
+        
+        [data-theme="light"] {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-card: #e8e8ec;
+            --bg-card-hover: #d4d4dc;
+            --text-primary: #1a1a2e;
+            --text-secondary: #555;
+            --border-color: #ddd;
+            --accent-color: #605443;
+            --accent-hover: #4a3d32;
+            --shadow: rgba(0,0,0,0.1);
+        }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: #0a0a0f; color: #fff; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--bg-primary); 
+            color: var(--text-primary);
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            transition: 0.3s;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--accent-hover);
+        }
 
         /* Navigation */
         .navbar {
             position: fixed; top: 0; left: 0; width: 260px; height: 100vh;
-            background: #0f0f1a; border-right: 1px solid #222; padding: 2rem; z-index: 1000;
+            background: var(--bg-secondary); border-right: 1px solid var(--border-color); 
+            padding: 2rem; z-index: 1000;
+            transition: background 0.3s;
         }
-        .clock-box { text-align: center; padding: 1rem; background: #1a1a2e; border-radius: 15px; margin-bottom: 2rem; }
+        .clock-box { text-align: center; padding: 1rem; background: var(--bg-card); border-radius: 15px; margin-bottom: 2rem; }
         .clock { font-size: 1.2rem; font-weight: 600; font-family: monospace; }
         .date { font-size: 0.7rem; opacity: 0.7; }
-        .profile-img { width: 120px; height: 120px; background: #1a1a2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; border: 3px solid #605443; }
-        .profile-img i { font-size: 3rem; color: #605443; }
+        .profile-img { width: 120px; height: 120px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; border: 3px solid var(--accent-color); }
+        .profile-img i { font-size: 3rem; color: var(--accent-color); }
         .nav-menu { list-style: none; }
         .nav-item { margin: 1rem 0; }
-        .nav-link { color: #aaa; text-decoration: none; display: block; padding: 0.5rem; transition: 0.3s; }
-        .nav-link:hover { color: #605443; padding-left: 10px; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; display: block; padding: 0.5rem; transition: 0.3s; }
+        .nav-link:hover { color: var(--accent-color); padding-left: 10px; }
 
         /* Main Content */
         .main-content { margin-left: 260px; padding: 2rem; }
-        .section { min-height: 100vh; padding: 4rem 0; border-bottom: 1px solid #1a1a2e; }
+        .section { min-height: 100vh; padding: 4rem 0; border-bottom: 1px solid var(--border-color); }
         .container { max-width: 1000px; margin: 0 auto; }
         .section-title { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
-        .section-title span { color: #605443; }
+        .section-title span { color: var(--accent-color); }
+
+        /* Buttons */
+        .btn-cv {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            margin-top: 1rem;
+        }
+        .btn-cv:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+        }
 
         /* About */
         .glow-text { font-size: 3rem; margin-bottom: 0.5rem; }
-        .glow-text span { color: #605443; }
-        .typed-text { color: #605443; font-size: 1.2rem; margin-bottom: 1rem; }
-        .lead-text { color: #aaa; line-height: 1.6; }
+        .glow-text span { color: var(--accent-color); }
+        .typed-text { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 1rem; }
+        .lead-text { color: var(--text-secondary); line-height: 1.6; }
         .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
-        .info-card { background: #1a1a2e; padding: 1rem; border-radius: 10px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
-        .info-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(96,84,67,0.2); }
-        .info-card i { font-size: 1.5rem; color: #605443; margin-bottom: 0.5rem; }
+        .info-card { background: var(--bg-card); padding: 1rem; border-radius: 10px; text-align: center; transition: 0.3s; }
+        .info-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px var(--shadow); }
+        .info-card i { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 0.5rem; }
         .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
-        .tech-tag { background: #1a1a2e; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; transition: 0.3s; }
-        .tech-tag:hover { background: #605443; transform: scale(1.05); }
-        .social-links { display: flex; gap: 1rem; }
-        .social-link { width: 40px; height: 40px; background: #1a1a2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; }
-        .social-link:hover { background: #605443; transform: translateY(-3px); }
+        .tech-tag { background: var(--bg-card); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; transition: 0.3s; cursor: default; }
+        .tech-tag:hover { background: var(--accent-color); transform: scale(1.05); color: white; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-link { width: 40px; height: 40px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-primary); text-decoration: none; transition: 0.3s; }
+        .social-link:hover { background: var(--accent-color); transform: translateY(-3px); color: white; }
 
         /* Timeline */
         .timeline { position: relative; padding-left: 2rem; }
-        .timeline::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: #605443; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: var(--accent-color); }
         .timeline-item { margin-bottom: 2rem; padding-left: 2rem; position: relative; opacity: 0; transform: translateX(-30px); animation: slideInLeft 0.5s ease forwards; }
         .timeline-item:nth-child(1) { animation-delay: 0.1s; }
         .timeline-item:nth-child(2) { animation-delay: 0.3s; }
         @keyframes slideInLeft { to { opacity: 1; transform: translateX(0); } }
-        .timeline-dot { position: absolute; left: -2.1rem; top: 0; width: 12px; height: 12px; background: #605443; border-radius: 50%; animation: pulse 2s infinite; }
+        .timeline-dot { position: absolute; left: -2.1rem; top: 0; width: 12px; height: 12px; background: var(--accent-color); border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
-        .timeline-content { background: #1a1a2e; padding: 1rem; border-radius: 10px; transition: 0.3s; }
-        .timeline-content:hover { transform: translateX(10px); background: #22223b; }
-        .timeline-date { color: #605443; font-size: 0.7rem; }
-        .grade-badge { display: inline-block; background: #605443; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; margin-top: 0.5rem; }
+        .timeline-content { background: var(--bg-card); padding: 1rem; border-radius: 10px; transition: 0.3s; }
+        .timeline-content:hover { transform: translateX(10px); background: var(--bg-card-hover); }
+        .timeline-date { color: var(--accent-color); font-size: 0.7rem; }
+        .grade-badge { display: inline-block; background: var(--accent-color); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; margin-top: 0.5rem; color: white; }
 
-        /* Projects Cards com ANIMAÇÕES */
+        /* Projects Cards */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
         .project-card {
-            background: #1a1a2e;
+            background: var(--bg-card);
             padding: 1.5rem;
             border-radius: 15px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(96,84,67,0.2);
+            border: 1px solid transparent;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.6s ease forwards;
         }
-        /* Atrasos para cada card aparecer em sequência */
         .project-card:nth-child(1) { animation-delay: 0.1s; }
         .project-card:nth-child(2) { animation-delay: 0.3s; }
         .project-card:nth-child(3) { animation-delay: 0.5s; }
-        .project-card:nth-child(4) { animation-delay: 0.7s; }
-        .project-card:nth-child(5) { animation-delay: 0.9s; }
-        .project-card:nth-child(6) { animation-delay: 1.1s; }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         .project-card:hover {
             transform: translateY(-10px) scale(1.02);
-            border-color: #605443;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 30px var(--shadow);
         }
         .project-icon {
             width: 60px;
@@ -114,28 +180,48 @@
         }
         .project-card:hover .project-icon {
             transform: scale(1.1) rotate(360deg);
-            background: #605443;
+            background: var(--accent-color);
         }
         .project-icon i {
             font-size: 1.5rem;
-            color: #605443;
+            color: var(--accent-color);
             transition: 0.3s;
         }
-        .project-card:hover .project-icon i {
-            color: white;
-        }
-        .project-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        .project-card p {
+        .project-card:hover .project-icon i { color: white; }
+        .project-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .project-card p { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem; }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--accent-color);
+            text-decoration: none;
             font-size: 0.8rem;
-            color: #aaa;
+            transition: 0.3s;
+        }
+        .project-link:hover {
+            gap: 0.6rem;
+            color: var(--accent-hover);
+        }
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        .project-tech span {
+            background: rgba(96,84,67,0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
         }
 
         /* Skills */
         .skills-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-        .skills-category h3 { color: #605443; margin-bottom: 1rem; font-size: 1.1rem; }
+        .skills-category h3 { color: var(--accent-color); margin-bottom: 1rem; font-size: 1.1rem; }
         .skill-item { margin-bottom: 1rem; opacity: 0; animation: fadeInLeft 0.5s ease forwards; }
         .skill-item:nth-child(1) { animation-delay: 0.1s; }
         .skill-item:nth-child(2) { animation-delay: 0.2s; }
@@ -144,38 +230,38 @@
         .skill-item:nth-child(5) { animation-delay: 0.5s; }
         @keyframes fadeInLeft { to { opacity: 1; transform: translateX(0); } }
         .skill-info { display: flex; justify-content: space-between; margin-bottom: 0.3rem; font-size: 0.8rem; }
-        .progress-bar { width: 100%; height: 5px; background: #1a1a2e; border-radius: 10px; overflow: hidden; }
-        .progress { height: 100%; background: linear-gradient(90deg, #605443, #8b6b54); border-radius: 10px; width: 0%; transition: width 1.2s ease; }
+        .progress-bar { width: 100%; height: 5px; background: var(--bg-card); border-radius: 10px; overflow: hidden; }
+        .progress { height: 100%; background: linear-gradient(90deg, var(--accent-color), var(--accent-hover)); border-radius: 10px; width: 0%; transition: width 1.2s ease; }
 
         /* Gallery */
         .filter-buttons { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-        .filter-btn { background: #1a1a2e; border: none; padding: 0.5rem 1.5rem; border-radius: 30px; color: white; cursor: pointer; transition: 0.3s; }
-        .filter-btn.active, .filter-btn:hover { background: #605443; transform: scale(1.05); }
+        .filter-btn { background: var(--bg-card); border: none; padding: 0.5rem 1.5rem; border-radius: 30px; color: var(--text-primary); cursor: pointer; transition: 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent-color); transform: scale(1.05); color: white; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-        .gallery-card { background: #1a1a2e; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; }
-        .gallery-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
-        .gallery-thumb { position: relative; width: 100%; aspect-ratio: 16/9; background: #0a0a0f; }
+        .gallery-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; }
+        .gallery-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px var(--shadow); }
+        .gallery-thumb { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--bg-primary); }
         .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
         .play-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(96,84,67,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .gallery-card:hover .play-overlay { transform: translate(-50%, -50%) scale(1.1); background: #605443; }
+        .gallery-card:hover .play-overlay { transform: translate(-50%, -50%) scale(1.1); background: var(--accent-color); }
         .play-overlay i { font-size: 1.2rem; color: white; }
         .gallery-info { padding: 0.8rem; }
         .gallery-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
-        .gallery-info p { font-size: 0.7rem; color: #aaa; }
+        .gallery-info p { font-size: 0.7rem; color: var(--text-secondary); }
 
         /* Awards */
         .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        .award-category { background: #1a1a2e; padding: 1rem; border-radius: 10px; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; }
+        .award-category { background: var(--bg-card); padding: 1rem; border-radius: 10px; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; }
         .award-category:nth-child(1) { animation-delay: 0.1s; }
         .award-category:nth-child(2) { animation-delay: 0.3s; }
         .award-category:hover { transform: translateY(-5px); border: 1px solid rgba(96,84,67,0.3); }
         .award-category h3 { font-size: 0.9rem; margin-bottom: 0.5rem; }
         .award-list { list-style: none; }
-        .award-list li { font-size: 0.7rem; color: #aaa; padding: 0.2rem 0; display: flex; align-items: center; gap: 0.5rem; transition: 0.3s; }
-        .award-list li:hover { transform: translateX(5px); color: white; }
-        .award-list li i { color: #605443; font-size: 0.6rem; }
+        .award-list li { font-size: 0.7rem; color: var(--text-secondary); padding: 0.2rem 0; display: flex; align-items: center; gap: 0.5rem; transition: 0.3s; }
+        .award-list li:hover { transform: translateX(5px); color: var(--text-primary); }
+        .award-list li i { color: var(--accent-color); font-size: 0.6rem; }
 
-        .footer { text-align: center; padding: 2rem; border-top: 1px solid #1a1a2e; margin-top: 2rem; color: #555; font-size: 0.7rem; }
+        .footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border-color); margin-top: 2rem; color: var(--text-secondary); font-size: 0.7rem; }
 
         /* Modais */
         .video-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; }
@@ -196,10 +282,16 @@
             .info-grid, .projects-grid, .skills-container, .awards-grid, .gallery-grid { grid-template-columns: 1fr; }
             .glow-text { font-size: 2rem; }
             .timeline { padding-left: 1rem; }
+            .theme-toggle { bottom: 70px; right: 15px; width: 40px; height: 40px; font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
+
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+</button>
 
 <nav class="navbar">
     <div class="clock-box">
@@ -226,6 +318,12 @@
             <h1 class="glow-text">Miguel <span>Lamego</span></h1>
             <div class="typed-text" id="typedText"></div>
             <p class="lead-text">Engenheiro Multimédia especializado em animação 3D, edição de vídeo e desenvolvimento web. Apaixonado por criar soluções criativas e inovadoras.</p>
+            
+            <!-- Botão Download CV -->
+            <a href="assets/cv-miguel-lamego.pdf" download class="btn-cv">
+                <i class="fas fa-download"></i> Download CV (PDF)
+            </a>
+            
             <div class="info-grid">
                 <div class="info-card"><i class="fas fa-graduation-cap"></i><h3>Licenciatura</h3><p>Engenharia Multimédia - 15/20</p></div>
                 <div class="info-card"><i class="fas fa-code"></i><h3>TGPSI</h3><p>Programação - 15/20</p></div>
@@ -254,7 +352,7 @@
         </div>
     </section>
 
-    <!-- Projects Section COM ANIMAÇÕES -->
+    <!-- Projects Section COM LINKS E TECNOLOGIAS -->
     <section class="section" id="projects">
         <div class="container">
             <h2 class="section-title">Featured <span>Projects</span></h2>
@@ -263,16 +361,34 @@
                     <div class="project-icon"><i class="fas fa-truck"></i></div>
                     <h3>CarretosComplexos</h3>
                     <p>Aplicação web para gestão de transportes. FullStack developer com PHP e MySQL.</p>
+                    <div class="project-tech">
+                        <span>PHP</span><span>MySQL</span><span>JavaScript</span>
+                    </div>
+                    <a href="https://github.com/JoseAntunes296/carretoscomplexos" target="_blank" class="project-link">
+                        Ver Projeto <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
                 <div class="project-card">
                     <div class="project-icon"><i class="fas fa-exchange-alt"></i></div>
                     <h3>Alonsuus</h3>
                     <p>Aplicação web para trocas e partilhas. Atualização de framework e Bootstrap 5.</p>
+                    <div class="project-tech">
+                        <span>PHP</span><span>Bootstrap 5</span><span>MySQL</span>
+                    </div>
+                    <a href="https://github.com/JoseAntunes296/alonsuus" target="_blank" class="project-link">
+                        Ver Projeto <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
                 <div class="project-card">
                     <div class="project-icon"><i class="fas fa-film"></i></div>
                     <h3>Animações 3D</h3>
                     <p>Criação de animações e modelos 3D com Blender, After Effects e Photoshop.</p>
+                    <div class="project-tech">
+                        <span>Blender</span><span>After Effects</span><span>Photoshop</span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=TSrK_4j9Uw0" target="_blank" class="project-link">
+                        Ver Demo <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -282,13 +398,11 @@
     <section class="section" id="media">
         <div class="container">
             <h2 class="section-title">Media <span>Gallery</span></h2>
-            
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">📷 Todos</button>
                 <button class="filter-btn" data-filter="image">🖼️ Imagens</button>
                 <button class="filter-btn" data-filter="video">🎬 Vídeos</button>
             </div>
-
             <div id="galleryContainer" class="gallery-grid"></div>
         </div>
     </section>
@@ -339,11 +453,41 @@
     </section>
 
     <footer class="footer">
-        <p>&copy; 2025 Miguel Lamego. Todos os direitos reservados.</p>
+        <p>&copy; <span id="ano"></span> Miguel Lamego. Todos os direitos reservados.</p>
     </footer>
 </main>
 
 <script>
+    // ========== ANO ATUAL ==========
+    document.getElementById('ano').textContent = new Date().getFullYear();
+
+    // ========== DARK/LIGHT MODE ==========
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    
+    // Verificar preferência guardada
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'light') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+    });
+
     // ========== RELÓGIO ==========
     function updateClock() {
         const now = new Date();
@@ -395,20 +539,17 @@
     });
 
     // ========== DADOS DA GALERIA ==========
-    // --- ADICIONA AQUI AS TUAS IMAGENS ---
     const imagens = [
-        { src: "assets/teste.png", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
+        { src: "assets/imagem1.jpg", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
         { src: "assets/imagem2.jpg", titulo: "Meu Trabalho 2", descricao: "Design Gráfico", tipo: "image" },
         { src: "assets/imagem3.jpg", titulo: "Meu Trabalho 3", descricao: "Animação", tipo: "image" }
     ];
 
-    // --- ADICIONA AQUI OS TEUS VÍDEOS DO YOUTUBE ---
     const videos = [
         { id: "TSrK_4j9Uw0", titulo: "Projeto 1 - Animação 3D", descricao: "Trabalho desenvolvido no Blender", tipo: "video" },
         { id: "3eiycVUwRTM", titulo: "Projeto 2 - Edição de Vídeo", descricao: "Edição no After Effects", tipo: "video" }
     ];
 
-    // ========== FUNÇÕES DA GALERIA ==========
     const galleryContainer = document.getElementById('galleryContainer');
 
     function abrirVideo(id, titulo) {
@@ -456,22 +597,18 @@
     function carregarGaleria(filtro = 'all') {
         if (!galleryContainer) return;
         galleryContainer.innerHTML = '';
-        
         let itens = [];
         if (filtro === 'all') { itens = [...imagens, ...videos]; }
         else if (filtro === 'image') { itens = [...imagens]; }
         else if (filtro === 'video') { itens = [...videos]; }
-        
         if (itens.length === 0) {
             galleryContainer.innerHTML = '<div style="text-align:center; padding:2rem;">Nenhum item encontrado</div>';
             return;
         }
-        
         itens.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'gallery-card';
             card.style.animationDelay = `${index * 0.05}s`;
-            
             if (item.tipo === 'video') {
                 card.innerHTML = `
                     <div class="gallery-thumb">
@@ -500,7 +637,6 @@
         });
     }
 
-    // ========== FILTROS ==========
     const botoes = document.querySelectorAll('.filter-btn');
     if (botoes.length) {
         botoes.forEach(btn => {
@@ -513,7 +649,7 @@
     }
     
     carregarGaleria('all');
-    console.log('✅ Portfólio carregado com animações!');
+    console.log('✅ Portfólio carregado com Dark/Light Mode, Links e Download CV!');
 </script>
 </body>
 </html>
