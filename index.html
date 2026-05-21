@@ -42,6 +42,18 @@
             background: var(--bg-primary); 
             color: var(--text-primary);
             transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        
+        /* Particle Background */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
         
         /* Theme Toggle Button */
@@ -86,7 +98,7 @@
         .nav-link:hover { color: var(--accent-color); padding-left: 10px; }
 
         /* Main Content */
-        .main-content { margin-left: 260px; padding: 2rem; }
+        .main-content { margin-left: 260px; padding: 2rem; position: relative; z-index: 1; }
         .section { min-height: 100vh; padding: 4rem 0; border-bottom: 1px solid var(--border-color); }
         .container { max-width: 1000px; margin: 0 auto; }
         .section-title { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
@@ -288,6 +300,9 @@
 </head>
 <body>
 
+<!-- Particle Background -->
+<canvas id="particles"></canvas>
+
 <!-- Theme Toggle Button -->
 <button class="theme-toggle" id="themeToggle">
     <i class="fas fa-moon"></i>
@@ -364,7 +379,7 @@
                     <div class="project-tech">
                         <span>PHP</span><span>MySQL</span><span>JavaScript</span>
                     </div>
-                    <a href="https://github.com/JoseAntunes296/carretoscomplexos" target="_blank" class="project-link">
+                    <a href="https://github.com/surfercris/carretoscomplexos" target="_blank" class="project-link">
                         Ver Projeto <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -375,7 +390,7 @@
                     <div class="project-tech">
                         <span>PHP</span><span>Bootstrap 5</span><span>MySQL</span>
                     </div>
-                    <a href="https://github.com/JoseAntunes296/alonsuus" target="_blank" class="project-link">
+                    <a href="https://github.com/surfercris/alonsuus" target="_blank" class="project-link">
                         Ver Projeto <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -458,6 +473,58 @@
 </main>
 
 <script>
+    // ========== PARTICLE BACKGROUND ==========
+    const canvas = document.getElementById('particles');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    alpha: Math.random() * 0.5 + 0.2,
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    speedY: (Math.random() - 0.5) * 0.3
+                });
+            }
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(96, 84, 67, ${p.alpha})`;
+                ctx.fill();
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+        
+        resizeCanvas();
+        initParticles();
+        animateParticles();
+    }
+
     // ========== ANO ATUAL ==========
     document.getElementById('ano').textContent = new Date().getFullYear();
 
@@ -465,7 +532,6 @@
     const themeToggle = document.getElementById('themeToggle');
     const icon = themeToggle.querySelector('i');
     
-    // Verificar preferência guardada
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
@@ -540,7 +606,7 @@
 
     // ========== DADOS DA GALERIA ==========
     const imagens = [
-        { src: "assets/imagem1.jpg", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
+        { src: "assets/teste.png", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
         { src: "assets/imagem2.jpg", titulo: "Meu Trabalho 2", descricao: "Design Gráfico", tipo: "image" },
         { src: "assets/imagem3.jpg", titulo: "Meu Trabalho 3", descricao: "Animação", tipo: "image" }
     ];
@@ -649,7 +715,7 @@
     }
     
     carregarGaleria('all');
-    console.log('✅ Portfólio carregado com Dark/Light Mode, Links e Download CV!');
+    console.log('✅ Portfólio carregado com partículas, Dark/Light Mode, Links e Download CV!');
 </script>
 </body>
 </html>
