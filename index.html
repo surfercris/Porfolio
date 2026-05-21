@@ -40,47 +40,124 @@
         .typed-text { color: #605443; font-size: 1.2rem; margin-bottom: 1rem; }
         .lead-text { color: #aaa; line-height: 1.6; }
         .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
-        .info-card { background: #1a1a2e; padding: 1rem; border-radius: 10px; text-align: center; }
+        .info-card { background: #1a1a2e; padding: 1rem; border-radius: 10px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+        .info-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(96,84,67,0.2); }
         .info-card i { font-size: 1.5rem; color: #605443; margin-bottom: 0.5rem; }
         .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
-        .tech-tag { background: #1a1a2e; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; }
+        .tech-tag { background: #1a1a2e; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; transition: 0.3s; }
+        .tech-tag:hover { background: #605443; transform: scale(1.05); }
         .social-links { display: flex; gap: 1rem; }
         .social-link { width: 40px; height: 40px; background: #1a1a2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; }
-        .social-link:hover { background: #605443; }
+        .social-link:hover { background: #605443; transform: translateY(-3px); }
 
         /* Timeline */
         .timeline { position: relative; padding-left: 2rem; }
         .timeline::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: #605443; }
-        .timeline-item { margin-bottom: 2rem; padding-left: 2rem; position: relative; }
-        .timeline-dot { position: absolute; left: -2.1rem; top: 0; width: 12px; height: 12px; background: #605443; border-radius: 50%; }
-        .timeline-content { background: #1a1a2e; padding: 1rem; border-radius: 10px; }
+        .timeline-item { margin-bottom: 2rem; padding-left: 2rem; position: relative; opacity: 0; transform: translateX(-30px); animation: slideInLeft 0.5s ease forwards; }
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.3s; }
+        @keyframes slideInLeft { to { opacity: 1; transform: translateX(0); } }
+        .timeline-dot { position: absolute; left: -2.1rem; top: 0; width: 12px; height: 12px; background: #605443; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
+        .timeline-content { background: #1a1a2e; padding: 1rem; border-radius: 10px; transition: 0.3s; }
+        .timeline-content:hover { transform: translateX(10px); background: #22223b; }
         .timeline-date { color: #605443; font-size: 0.7rem; }
         .grade-badge { display: inline-block; background: #605443; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; margin-top: 0.5rem; }
 
-        /* Projects */
-        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-        .project-card { background: #1a1a2e; padding: 1rem; border-radius: 10px; text-align: center; }
-        .project-icon { width: 50px; height: 50px; background: #0a0a0f; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
-        .project-icon i { font-size: 1.2rem; color: #605443; }
+        /* Projects Cards com ANIMAÇÕES */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: #1a1a2e;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(96,84,67,0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        /* Atrasos para cada card aparecer em sequência */
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.3s; }
+        .project-card:nth-child(3) { animation-delay: 0.5s; }
+        .project-card:nth-child(4) { animation-delay: 0.7s; }
+        .project-card:nth-child(5) { animation-delay: 0.9s; }
+        .project-card:nth-child(6) { animation-delay: 1.1s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #605443;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(96,84,67,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            transition: 0.3s;
+        }
+        .project-card:hover .project-icon {
+            transform: scale(1.1) rotate(360deg);
+            background: #605443;
+        }
+        .project-icon i {
+            font-size: 1.5rem;
+            color: #605443;
+            transition: 0.3s;
+        }
+        .project-card:hover .project-icon i {
+            color: white;
+        }
+        .project-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .project-card p {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
 
         /* Skills */
         .skills-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
         .skills-category h3 { color: #605443; margin-bottom: 1rem; font-size: 1.1rem; }
-        .skill-item { margin-bottom: 1rem; }
+        .skill-item { margin-bottom: 1rem; opacity: 0; animation: fadeInLeft 0.5s ease forwards; }
+        .skill-item:nth-child(1) { animation-delay: 0.1s; }
+        .skill-item:nth-child(2) { animation-delay: 0.2s; }
+        .skill-item:nth-child(3) { animation-delay: 0.3s; }
+        .skill-item:nth-child(4) { animation-delay: 0.4s; }
+        .skill-item:nth-child(5) { animation-delay: 0.5s; }
+        @keyframes fadeInLeft { to { opacity: 1; transform: translateX(0); } }
         .skill-info { display: flex; justify-content: space-between; margin-bottom: 0.3rem; font-size: 0.8rem; }
-        .progress-bar { width: 100%; height: 5px; background: #1a1a2e; border-radius: 10px; }
-        .progress { height: 100%; background: #605443; border-radius: 10px; width: 0%; }
+        .progress-bar { width: 100%; height: 5px; background: #1a1a2e; border-radius: 10px; overflow: hidden; }
+        .progress { height: 100%; background: linear-gradient(90deg, #605443, #8b6b54); border-radius: 10px; width: 0%; transition: width 1.2s ease; }
 
-        /* Gallery - Imagens + Vídeos */
+        /* Gallery */
         .filter-buttons { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
         .filter-btn { background: #1a1a2e; border: none; padding: 0.5rem 1.5rem; border-radius: 30px; color: white; cursor: pointer; transition: 0.3s; }
-        .filter-btn.active, .filter-btn:hover { background: #605443; }
+        .filter-btn.active, .filter-btn:hover { background: #605443; transform: scale(1.05); }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-        .gallery-card { background: #1a1a2e; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .gallery-card { background: #1a1a2e; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; }
         .gallery-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
         .gallery-thumb { position: relative; width: 100%; aspect-ratio: 16/9; background: #0a0a0f; }
         .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .play-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(96,84,67,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .play-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(96,84,67,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .gallery-card:hover .play-overlay { transform: translate(-50%, -50%) scale(1.1); background: #605443; }
         .play-overlay i { font-size: 1.2rem; color: white; }
         .gallery-info { padding: 0.8rem; }
         .gallery-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
@@ -88,22 +165,25 @@
 
         /* Awards */
         .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        .award-category { background: #1a1a2e; padding: 1rem; border-radius: 10px; }
+        .award-category { background: #1a1a2e; padding: 1rem; border-radius: 10px; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; }
+        .award-category:nth-child(1) { animation-delay: 0.1s; }
+        .award-category:nth-child(2) { animation-delay: 0.3s; }
+        .award-category:hover { transform: translateY(-5px); border: 1px solid rgba(96,84,67,0.3); }
         .award-category h3 { font-size: 0.9rem; margin-bottom: 0.5rem; }
         .award-list { list-style: none; }
-        .award-list li { font-size: 0.7rem; color: #aaa; padding: 0.2rem 0; display: flex; align-items: center; gap: 0.5rem; }
+        .award-list li { font-size: 0.7rem; color: #aaa; padding: 0.2rem 0; display: flex; align-items: center; gap: 0.5rem; transition: 0.3s; }
+        .award-list li:hover { transform: translateX(5px); color: white; }
         .award-list li i { color: #605443; font-size: 0.6rem; }
 
-        .footer { text-align: center; padding: 2rem; color: #555; font-size: 0.7rem; }
+        .footer { text-align: center; padding: 2rem; border-top: 1px solid #1a1a2e; margin-top: 2rem; color: #555; font-size: 0.7rem; }
 
-        /* Modal para vídeos */
+        /* Modais */
         .video-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; }
         .video-modal.active { opacity: 1; visibility: visible; }
         .video-modal-content { width: 90%; max-width: 800px; position: relative; }
         .video-modal-close { position: absolute; top: -35px; right: 0; font-size: 25px; color: white; cursor: pointer; background: none; border: none; }
         .video-modal-content iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; }
 
-        /* Lightbox para imagens */
         .lightbox-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; }
         .lightbox-modal.active { opacity: 1; visibility: visible; }
         .lightbox-content { max-width: 90%; max-height: 90%; text-align: center; }
@@ -111,10 +191,11 @@
         .lightbox-close { position: absolute; top: 20px; right: 40px; font-size: 35px; color: white; cursor: pointer; }
 
         @media (max-width: 768px) {
-            .navbar { width: 100%; height: auto; position: relative; }
-            .main-content { margin-left: 0; }
+            .navbar { width: 100%; height: auto; position: relative; padding: 1rem; }
+            .main-content { margin-left: 0; padding: 1rem; }
             .info-grid, .projects-grid, .skills-container, .awards-grid, .gallery-grid { grid-template-columns: 1fr; }
             .glow-text { font-size: 2rem; }
+            .timeline { padding-left: 1rem; }
         }
     </style>
 </head>
@@ -173,19 +254,31 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects Section COM ANIMAÇÕES -->
     <section class="section" id="projects">
         <div class="container">
             <h2 class="section-title">Featured <span>Projects</span></h2>
             <div class="projects-grid">
-                <div class="project-card"><div class="project-icon"><i class="fas fa-truck"></i></div><h3>CarretosComplexos</h3><p>Aplicação web para gestão de transportes</p></div>
-                <div class="project-card"><div class="project-icon"><i class="fas fa-exchange-alt"></i></div><h3>Alonsuus</h3><p>Aplicação web para trocas e partilhas</p></div>
-                <div class="project-card"><div class="project-icon"><i class="fas fa-film"></i></div><h3>Animações 3D</h3><p>Criação no Blender e After Effects</p></div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-truck"></i></div>
+                    <h3>CarretosComplexos</h3>
+                    <p>Aplicação web para gestão de transportes. FullStack developer com PHP e MySQL.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3>Alonsuus</h3>
+                    <p>Aplicação web para trocas e partilhas. Atualização de framework e Bootstrap 5.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-film"></i></div>
+                    <h3>Animações 3D</h3>
+                    <p>Criação de animações e modelos 3D com Blender, After Effects e Photoshop.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Media Gallery Section (Imagens + Vídeos) -->
+    <!-- Media Gallery Section -->
     <section class="section" id="media">
         <div class="container">
             <h2 class="section-title">Media <span>Gallery</span></h2>
@@ -307,22 +400,17 @@
         { src: "assets/teste.png", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
         { src: "assets/imagem2.jpg", titulo: "Meu Trabalho 2", descricao: "Design Gráfico", tipo: "image" },
         { src: "assets/imagem3.jpg", titulo: "Meu Trabalho 3", descricao: "Animação", tipo: "image" }
-        // ADICIONA MAIS IMAGENS AQUI:
-        // { src: "assets/nome.jpg", titulo: "Título", descricao: "Descrição", tipo: "image" },
     ];
 
     // --- ADICIONA AQUI OS TEUS VÍDEOS DO YOUTUBE ---
     const videos = [
         { id: "TSrK_4j9Uw0", titulo: "Projeto 1 - Animação 3D", descricao: "Trabalho desenvolvido no Blender", tipo: "video" },
         { id: "3eiycVUwRTM", titulo: "Projeto 2 - Edição de Vídeo", descricao: "Edição no After Effects", tipo: "video" }
-        // ADICIONA MAIS VÍDEOS AQUI:
-        // { id: "ID_DO_VIDEO", titulo: "Título", descricao: "Descrição", tipo: "video" },
     ];
 
     // ========== FUNÇÕES DA GALERIA ==========
     const galleryContainer = document.getElementById('galleryContainer');
 
-    // Abrir vídeo do YouTube
     function abrirVideo(id, titulo) {
         const modal = document.createElement('div');
         modal.className = 'video-modal';
@@ -344,7 +432,6 @@
         };
     }
 
-    // Abrir imagem em lightbox
     function abrirImagem(src, titulo) {
         const modal = document.createElement('div');
         modal.className = 'lightbox-modal';
@@ -366,32 +453,26 @@
         };
     }
 
-    // Carregar galeria com filtro
     function carregarGaleria(filtro = 'all') {
         if (!galleryContainer) return;
         galleryContainer.innerHTML = '';
         
         let itens = [];
-        
-        if (filtro === 'all') {
-            itens = [...imagens, ...videos];
-        } else if (filtro === 'image') {
-            itens = [...imagens];
-        } else if (filtro === 'video') {
-            itens = [...videos];
-        }
+        if (filtro === 'all') { itens = [...imagens, ...videos]; }
+        else if (filtro === 'image') { itens = [...imagens]; }
+        else if (filtro === 'video') { itens = [...videos]; }
         
         if (itens.length === 0) {
             galleryContainer.innerHTML = '<div style="text-align:center; padding:2rem;">Nenhum item encontrado</div>';
             return;
         }
         
-        itens.forEach(item => {
+        itens.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'gallery-card';
+            card.style.animationDelay = `${index * 0.05}s`;
             
             if (item.tipo === 'video') {
-                // Card de vídeo
                 card.innerHTML = `
                     <div class="gallery-thumb">
                         <img src="https://img.youtube.com/vi/${item.id}/hqdefault.jpg" alt="${item.titulo}">
@@ -404,7 +485,6 @@
                 `;
                 card.onclick = () => abrirVideo(item.id, item.titulo);
             } else {
-                // Card de imagem
                 card.innerHTML = `
                     <div class="gallery-thumb">
                         <img src="${item.src}" alt="${item.titulo}" onerror="this.src='https://placehold.co/400x300/1a1a2e/605443?text=Imagem'">
@@ -416,29 +496,24 @@
                 `;
                 card.onclick = () => abrirImagem(item.src, item.titulo);
             }
-            
             galleryContainer.appendChild(card);
         });
     }
 
     // ========== FILTROS ==========
     const botoes = document.querySelectorAll('.filter-btn');
-    
     if (botoes.length) {
         botoes.forEach(btn => {
             btn.addEventListener('click', () => {
                 botoes.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const filtro = btn.getAttribute('data-filter');
-                carregarGaleria(filtro);
+                carregarGaleria(btn.getAttribute('data-filter'));
             });
         });
     }
     
-    // Inicializar galeria
     carregarGaleria('all');
-
-    console.log('✅ Portfólio carregado!');
+    console.log('✅ Portfólio carregado com animações!');
 </script>
 </body>
 </html>
