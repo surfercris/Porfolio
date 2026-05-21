@@ -22,6 +22,7 @@
             --accent-hover: #8b6b54;
             --shadow: rgba(0,0,0,0.3);
             --font-size-base: 16px;
+            --input-bg: #1a1a2e;
         }
         
         [data-theme="light"] {
@@ -35,6 +36,7 @@
             --accent-color: #605443;
             --accent-hover: #4a3d32;
             --shadow: rgba(0,0,0,0.1);
+            --input-bg: #ffffff;
         }
         
         /* Alto Contraste */
@@ -48,6 +50,7 @@
             --border-color: #ffffff;
             --accent-color: #ffff00;
             --accent-hover: #ffcc00;
+            --input-bg: #000000;
         }
         
         /* Aumentar fonte */
@@ -64,7 +67,7 @@
         }
         
         /* Sublinhar links */
-        [data-underline-links="true"] a:not(.social-link):not(.project-link) {
+        [data-underline-links="true"] a:not(.social-link):not(.project-link):not(.github-btn) {
             text-decoration: underline !important;
             text-decoration-thickness: 2px !important;
         }
@@ -507,6 +510,117 @@
             color: var(--text-secondary);
         }
 
+        /* ========== FORMULÁRIO DE CONTACTO ========== */
+        .contact-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(96,84,67,0.2);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .submit-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .submit-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            display: none;
+        }
+        .form-message.success {
+            display: block;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #4caf50;
+        }
+        .form-message.error {
+            display: block;
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid #f44336;
+            color: #f44336;
+        }
+        .contact-info-form {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        .contact-details-form {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        .contact-details-form h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .contact-details-form p {
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.85rem;
+        }
+        .contact-details-form i {
+            color: var(--accent-color);
+            width: 20px;
+        }
+        @media (max-width: 768px) {
+            .contact-info-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Skills */
         .skills-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
         .skills-category h3 { color: var(--accent-color); margin-bottom: 1rem; font-size: 1.1rem; }
@@ -625,6 +739,7 @@
         <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
         <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
         <li class="nav-item"><a class="nav-link" href="#github">GitHub</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
         <li class="nav-item"><a class="nav-link" href="#media">Media</a></li>
         <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
         <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
@@ -656,7 +771,7 @@
                 <span class="tech-tag">HTML/CSS</span><span class="tech-tag">JavaScript</span><span class="tech-tag">MySQL</span>
             </div>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/miguellamego/" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://github.com/surfercris" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
             </div>
         </div>
@@ -703,26 +818,71 @@
         </div>
     </section>
 
-    <!-- GitHub Repos Section (NOVA) -->
+    <!-- GitHub Repos Section -->
     <section class="section" id="github">
         <div class="container">
             <h2 class="section-title">GitHub <span>Repositories</span></h2>
             <p class="lead-text" style="text-align: center; margin-bottom: 2rem;">Os meus projetos mais recentes no GitHub</p>
             
-            <!-- Loading Skeleton para GitHub -->
             <div id="githubSkeleton" class="skeleton-grid">
                 <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
                 <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
                 <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
             </div>
             
-            <!-- Container para os repositórios -->
             <div id="reposContainer" class="repos-grid" style="display: none;"></div>
             
             <div class="github-profile-link">
                 <a href="https://github.com/surfercris" target="_blank" class="github-btn">
                     <i class="fab fa-github"></i> Ver todos os repositórios
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (NOVA) -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Entre em <span>Contacto</span></h2>
+            
+            <div class="contact-info-form">
+                <!-- Informações de contacto -->
+                <div class="contact-details-form">
+                    <h3><i class="fas fa-info-circle"></i> Informações</h3>
+                    <p><i class="fas fa-envelope"></i> miguel@exemplo.com</p>
+                    <p><i class="fas fa-phone"></i> +351 912 345 678</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Lisboa, Portugal</p>
+                    <p><i class="fab fa-linkedin"></i> linkedin.com/in/miguellamego</p>
+                    <p><i class="fab fa-github"></i> github.com/surfercris</p>
+                    <hr style="margin: 1rem 0; border-color: var(--border-color);">
+                    <p><i class="fas fa-clock"></i> Resposta em até 24h</p>
+                </div>
+                
+                <!-- Formulário -->
+                <div class="contact-section">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nome *</label>
+                            <input type="text" id="name" name="name" required placeholder="O seu nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Assunto *</label>
+                            <input type="text" id="subject" name="subject" required placeholder="Assunto da mensagem">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensagem *</label>
+                            <textarea id="message" name="message" required placeholder="Escreva aqui a sua mensagem..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                        </button>
+                        <div id="formMessage" class="form-message"></div>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -834,7 +994,6 @@
         }
     });
     
-    // Aumentar fonte
     const fontIncrease = document.getElementById('fontIncrease');
     const fontDecrease = document.getElementById('fontDecrease');
     let currentFontSize = localStorage.getItem('fontSize') || 'normal';
@@ -850,14 +1009,12 @@
             if (currentFontSize === 'normal') setFontSize('large');
             else if (currentFontSize === 'large') setFontSize('xlarge');
         });
-        
         fontDecrease.addEventListener('click', () => {
             if (currentFontSize === 'xlarge') setFontSize('large');
             else if (currentFontSize === 'large') setFontSize('normal');
         });
     }
     
-    // Alto contraste
     const contrastToggle = document.getElementById('contrastToggle');
     let highContrast = localStorage.getItem('highContrast') === 'true';
     
@@ -880,7 +1037,6 @@
         });
     }
     
-    // Sublinhar links
     const underlineLinks = document.getElementById('underlineLinks');
     let linksUnderlined = localStorage.getItem('linksUnderlined') === 'true';
     
@@ -903,7 +1059,6 @@
         });
     }
     
-    // Reset acessibilidade
     const resetAccessibility = document.getElementById('resetAccessibility');
     if (resetAccessibility) {
         resetAccessibility.addEventListener('click', () => {
@@ -917,6 +1072,60 @@
         });
     }
 
+    // ========== FORMULÁRIO DE CONTACTO (Formspree) ==========
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // IMPORTANTE: Substituir pelo teu endpoint do Formspree
+    // 1. Cria conta em formspree.io (grátis)
+    // 2. Cria um novo formulário
+    // 3. Copias o ID e colas aqui
+    const FORMSPREE_ID = 'mdajggoa'; // <-- SUBSTITUI PELO TEU ID DO FORMSPREE
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Mostrar loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            
+            // Preparar dados
+            const formData = new FormData(contactForm);
+            formData.append('_subject', 'Novo contacto do portfólio!');
+            
+            try {
+                const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    formMessage.className = 'form-message success';
+                    formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Mensagem enviada com sucesso! Entrarei em contacto brevemente.';
+                    contactForm.reset();
+                } else {
+                    throw new Error('Erro ao enviar');
+                }
+            } catch (error) {
+                formMessage.className = 'form-message error';
+                formMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao enviar mensagem. Tenta novamente ou envia email diretamente.';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensagem';
+                
+                // Esconder mensagem após 5 segundos
+                setTimeout(() => {
+                    formMessage.className = 'form-message';
+                }, 5000);
+            }
+        });
+    }
+
     // ========== GITHUB API ==========
     async function fetchGitHubRepos() {
         const username = 'surfercris';
@@ -924,7 +1133,7 @@
         const githubSkeleton = document.getElementById('githubSkeleton');
         
         try {
-            const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=3`);
+            const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
             
             if (!response.ok) {
                 throw new Error('Erro ao carregar repositórios');
@@ -932,7 +1141,6 @@
             
             const repos = await response.json();
             
-            // Esconder skeleton
             if (githubSkeleton) githubSkeleton.style.display = 'none';
             if (reposContainer) reposContainer.style.display = 'grid';
             
@@ -941,8 +1149,6 @@
             repos.forEach(repo => {
                 const card = document.createElement('div');
                 card.className = 'repo-card';
-                
-                // Formatar data
                 const updatedDate = new Date(repo.updated_at).toLocaleDateString('pt-PT');
                 
                 card.innerHTML = `
@@ -958,7 +1164,6 @@
                     </div>
                     ${repo.language ? `<div class="repo-language">${repo.language}</div>` : ''}
                 `;
-                
                 reposContainer.appendChild(card);
             });
             
@@ -1237,16 +1442,13 @@
     }
     
     carregarGaleria('all');
-    
-    // Carregar repositórios do GitHub
     fetchGitHubRepos();
     
-    // Restaurar tamanho da fonte
     if (localStorage.getItem('fontSize')) {
         setFontSize(localStorage.getItem('fontSize'));
     }
     
-    console.log('✅ Portfólio carregado com GitHub API!');
+    console.log('✅ Portfólio carregado com formulário de contacto!');
 </script>
 </body>
 </html>
