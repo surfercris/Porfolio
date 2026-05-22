@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Three.js CDN - Carregar primeiro -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <style>
         /* ========== VARIÁVEIS ========== */
         :root {
@@ -39,7 +42,6 @@
             --input-bg: rgba(255, 255, 255, 0.9);
         }
         
-        /* Alto Contraste */
         [data-contrast="high"] {
             --bg-primary: rgba(0, 0, 0, 0.95);
             --bg-secondary: rgba(0, 0, 0, 0.98);
@@ -53,15 +55,9 @@
             --input-bg: #000000;
         }
         
-        /* Aumentar fonte */
-        body {
-            font-size: var(--font-size-base);
-        }
-        
+        body { font-size: var(--font-size-base); }
         [data-font-size="large"] { --font-size-base: 18px; }
         [data-font-size="xlarge"] { --font-size-base: 20px; }
-        
-        /* Sublinhar links */
         [data-underline-links="true"] a:not(.social-link):not(.project-link):not(.github-btn) {
             text-decoration: underline !important;
             text-decoration-thickness: 2px !important;
@@ -77,7 +73,7 @@
             font-size: var(--font-size-base);
         }
         
-        /* Canvas 3D - Three.js */
+        /* Canvas 3D */
         #canvas3d {
             position: fixed;
             top: 0;
@@ -101,7 +97,6 @@
             z-index: 1002;
             border: 1px solid var(--border-color);
             backdrop-filter: blur(10px);
-            transition: 0.3s;
         }
         .accessibility-panel button {
             background: none;
@@ -118,14 +113,8 @@
             justify-content: center;
             transition: 0.3s;
         }
-        .accessibility-panel button:hover {
-            background: var(--accent-color);
-            transform: scale(1.1);
-        }
-        .accessibility-panel button.active {
-            background: var(--accent-color);
-            color: white;
-        }
+        .accessibility-panel button:hover { background: var(--accent-color); transform: scale(1.1); }
+        .accessibility-panel button.active { background: var(--accent-color); color: white; }
         .accessibility-toggle {
             position: fixed;
             bottom: 20px;
@@ -139,16 +128,12 @@
             justify-content: center;
             cursor: pointer;
             z-index: 1002;
-            transition: 0.3s;
             border: none;
             color: white;
             font-size: 1.3rem;
         }
-        .accessibility-toggle:hover {
-            transform: scale(1.1);
-        }
+        .accessibility-toggle:hover { transform: scale(1.1); }
         
-        /* Theme Toggle Button */
         .theme-toggle {
             position: fixed;
             bottom: 20px;
@@ -162,17 +147,12 @@
             justify-content: center;
             cursor: pointer;
             z-index: 1001;
-            transition: 0.3s;
             border: none;
             color: white;
             font-size: 1.5rem;
         }
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            background: var(--accent-hover);
-        }
+        .theme-toggle:hover { transform: scale(1.1); background: var(--accent-hover); }
         
-        /* Back to Top Button */
         .back-to-top {
             position: fixed;
             bottom: 90px;
@@ -186,25 +166,17 @@
             justify-content: center;
             cursor: pointer;
             z-index: 1001;
-            transition: 0.3s;
             border: none;
             color: white;
             font-size: 1.2rem;
             opacity: 0;
             visibility: hidden;
             transform: scale(0.8);
+            transition: 0.3s;
         }
-        .back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-            transform: scale(1);
-        }
-        .back-to-top:hover {
-            transform: scale(1.1);
-            background: var(--accent-hover);
-        }
+        .back-to-top.show { opacity: 1; visibility: visible; transform: scale(1); }
+        .back-to-top:hover { transform: scale(1.1); background: var(--accent-hover); }
         
-        /* Visitor Counter */
         .visitor-counter {
             position: fixed;
             bottom: 20px;
@@ -220,9 +192,7 @@
             border: 1px solid var(--border-color);
             backdrop-filter: blur(5px);
         }
-        .visitor-counter i {
-            color: var(--accent-color);
-        }
+        .visitor-counter i { color: var(--accent-color); }
 
         /* Mobile Menu */
         .mobile-menu-btn {
@@ -238,14 +208,11 @@
             justify-content: center;
             cursor: pointer;
             z-index: 1001;
-            transition: 0.3s;
             border: none;
             color: white;
             font-size: 1.3rem;
         }
-        .mobile-menu-btn:hover {
-            transform: scale(1.1);
-        }
+        .mobile-menu-btn:hover { transform: scale(1.1); }
         
         .menu-overlay {
             position: fixed;
@@ -281,7 +248,6 @@
             background: var(--bg-card);
             border-radius: 15px;
             margin-bottom: 2rem;
-            backdrop-filter: blur(5px);
         }
         .clock { font-size: 1.2rem; font-weight: 600; font-family: monospace; }
         .date { font-size: 0.7rem; opacity: 0.7; }
@@ -305,7 +271,6 @@
         .section-title { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
         .section-title span { color: var(--accent-color); }
 
-        /* Buttons */
         .btn-cv {
             display: inline-flex;
             align-items: center;
@@ -319,12 +284,8 @@
             transition: 0.3s;
             margin-top: 1rem;
         }
-        .btn-cv:hover {
-            background: var(--accent-hover);
-            transform: translateY(-3px);
-        }
+        .btn-cv:hover { background: var(--accent-hover); transform: translateY(-3px); }
 
-        /* About */
         .glow-text { font-size: 3rem; margin-bottom: 0.5rem; }
         .glow-text span { color: var(--accent-color); }
         .typed-text { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 1rem; }
@@ -334,13 +295,12 @@
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px var(--shadow); }
         .info-card i { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 0.5rem; }
         .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
-        .tech-tag { background: var(--bg-card); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; transition: 0.3s; cursor: default; backdrop-filter: blur(5px); }
+        .tech-tag { background: var(--bg-card); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; transition: 0.3s; backdrop-filter: blur(5px); }
         .tech-tag:hover { background: var(--accent-color); transform: scale(1.05); color: white; }
         .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
         .social-link { width: 40px; height: 40px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-primary); text-decoration: none; transition: 0.3s; backdrop-filter: blur(5px); }
         .social-link:hover { background: var(--accent-color); transform: translateY(-3px); color: white; }
 
-        /* Timeline */
         .timeline { position: relative; padding-left: 2rem; }
         .timeline::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: var(--accent-color); }
         .timeline-item { margin-bottom: 2rem; padding-left: 2rem; position: relative; opacity: 0; transform: translateX(-30px); animation: slideInLeft 0.5s ease forwards; }
@@ -354,7 +314,6 @@
         .timeline-date { color: var(--accent-color); font-size: 0.7rem; }
         .grade-badge { display: inline-block; background: var(--accent-color); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; margin-top: 0.5rem; color: white; }
 
-        /* Projects */
         .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         .project-card {
             background: var(--bg-card);
@@ -388,10 +347,7 @@
             margin: 0 auto 1rem;
             transition: 0.3s;
         }
-        .project-card:hover .project-icon {
-            transform: scale(1.1) rotate(360deg);
-            background: var(--accent-color);
-        }
+        .project-card:hover .project-icon { transform: scale(1.1) rotate(360deg); background: var(--accent-color); }
         .project-icon i { font-size: 1.5rem; color: var(--accent-color); transition: 0.3s; }
         .project-card:hover .project-icon i { color: white; }
         .project-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
@@ -401,7 +357,6 @@
         .project-tech { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 0.8rem; }
         .project-tech span { background: rgba(96,84,67,0.2); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.65rem; color: var(--text-secondary); }
 
-        /* GitHub */
         .repos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
         .repo-card { background: var(--bg-card); border-radius: 12px; padding: 1.2rem; transition: all 0.3s; border: 1px solid var(--border-color); backdrop-filter: blur(5px); }
         .repo-card:hover { transform: translateY(-5px); border-color: var(--accent-color); box-shadow: 0 10px 20px var(--shadow); }
@@ -417,7 +372,6 @@
         .github-profile-link { text-align: center; margin-top: 2rem; }
         .github-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-color); color: white; padding: 0.5rem 1.2rem; border-radius: 30px; text-decoration: none; font-size: 0.8rem; transition: 0.3s; }
 
-        /* Contact */
         .contact-section {
             background: var(--bg-card);
             border-radius: 20px;
@@ -469,7 +423,6 @@
         .contact-details-form p { margin: 0.8rem 0; display: flex; align-items: center; gap: 0.8rem; font-size: 0.85rem; }
         .contact-details-form i { color: var(--accent-color); width: 20px; }
 
-        /* Skills */
         .skills-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
         .skills-category h3 { color: var(--accent-color); margin-bottom: 1rem; font-size: 1.1rem; }
         .skill-item { margin-bottom: 1rem; opacity: 0; animation: fadeInLeft 0.5s ease forwards; }
@@ -483,7 +436,6 @@
         .progress-bar { width: 100%; height: 5px; background: var(--bg-card); border-radius: 10px; overflow: hidden; }
         .progress { height: 100%; background: linear-gradient(90deg, var(--accent-color), var(--accent-hover)); border-radius: 10px; width: 0%; transition: width 1.2s ease; }
 
-        /* Gallery */
         .filter-buttons { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
         .filter-btn { background: var(--bg-card); border: none; padding: 0.5rem 1.5rem; border-radius: 30px; color: var(--text-primary); cursor: pointer; transition: 0.3s; }
         .filter-btn.active, .filter-btn:hover { background: var(--accent-color); transform: scale(1.05); color: white; }
@@ -499,7 +451,6 @@
         .gallery-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
         .gallery-info p { font-size: 0.7rem; color: var(--text-secondary); }
 
-        /* Awards */
         .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
         .award-category { background: var(--bg-card); padding: 1rem; border-radius: 10px; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; backdrop-filter: blur(5px); }
         .award-category:nth-child(1) { animation-delay: 0.1s; }
@@ -513,19 +464,18 @@
 
         .footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border-color); margin-top: 2rem; color: var(--text-secondary); font-size: 0.7rem; }
 
-        /* Modais */
         .video-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; }
         .video-modal.active { opacity: 1; visibility: visible; }
         .video-modal-content { width: 90%; max-width: 800px; position: relative; }
         .video-modal-close { position: absolute; top: -35px; right: 0; font-size: 25px; color: white; cursor: pointer; background: none; border: none; }
         .video-modal-content iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; }
+        
         .lightbox-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; }
         .lightbox-modal.active { opacity: 1; visibility: visible; }
         .lightbox-content { max-width: 90%; max-height: 90%; text-align: center; }
         .lightbox-content img { max-width: 100%; max-height: 80vh; border-radius: 10px; }
         .lightbox-close { position: absolute; top: 20px; right: 40px; font-size: 35px; color: white; cursor: pointer; }
 
-        /* Loading Skeleton */
         .skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
         .skeleton-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; }
         .skeleton-thumb { width: 100%; height: 120px; background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
@@ -534,14 +484,9 @@
         .skeleton-text.long { width: 90%; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .mobile-menu-btn { display: flex; }
-            .navbar {
-                width: 260px;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
+            .navbar { width: 260px; transform: translateX(-100%); transition: transform 0.3s ease; }
             .navbar.mobile-open { transform: translateX(0); }
             .main-content { margin-left: 0; padding: 2rem 1rem; padding-top: 80px; }
             .info-grid, .projects-grid, .skills-container, .awards-grid, .gallery-grid, .repos-grid, .contact-info-form { grid-template-columns: 1fr; }
@@ -558,15 +503,13 @@
 </head>
 <body>
 
-<!-- Canvas 3D - Three.js -->
+<!-- Canvas 3D -->
 <canvas id="canvas3d"></canvas>
 
-<!-- Botão hambúrguer para mobile -->
+<!-- Mobile Menu -->
 <button class="mobile-menu-btn" id="mobileMenuBtn">
     <i class="fas fa-bars"></i>
 </button>
-
-<!-- Overlay para fechar menu -->
 <div class="menu-overlay" id="menuOverlay"></div>
 
 <!-- Visitor Counter -->
@@ -576,17 +519,15 @@
     <span>visitas</span>
 </div>
 
-<!-- Theme Toggle Button -->
+<!-- Theme Toggle -->
 <button class="theme-toggle" id="themeToggle">
     <i class="fas fa-moon"></i>
 </button>
 
-<!-- Accessibility Toggle Button -->
+<!-- Accessibility -->
 <button class="accessibility-toggle" id="accessibilityToggle">
     <i class="fas fa-universal-access"></i>
 </button>
-
-<!-- Accessibility Panel -->
 <div class="accessibility-panel" id="accessibilityPanel" style="display: none;">
     <button id="fontDecrease" title="Diminuir fonte">A-</button>
     <button id="fontIncrease" title="Aumentar fonte">A+</button>
@@ -595,11 +536,12 @@
     <button id="resetAccessibility" title="Reset"><i class="fas fa-undo-alt"></i></button>
 </div>
 
-<!-- Back to Top Button -->
+<!-- Back to Top -->
 <button class="back-to-top" id="backToTop">
     <i class="fas fa-arrow-up"></i>
 </button>
 
+<!-- Navigation -->
 <nav class="navbar" id="sideNav">
     <div class="clock-box">
         <div class="clock" id="clock">--:--:--</div>
@@ -649,7 +591,7 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
+    <!-- Experience -->
     <section class="section" id="experience">
         <div class="container">
             <h2 class="section-title">Work <span>Experience</span></h2>
@@ -660,7 +602,7 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects -->
     <section class="section" id="projects">
         <div class="container">
             <h2 class="section-title">Featured <span>Projects</span></h2>
@@ -690,20 +632,17 @@
         </div>
     </section>
 
-    <!-- GitHub Repos Section -->
+    <!-- GitHub -->
     <section class="section" id="github">
         <div class="container">
             <h2 class="section-title">GitHub <span>Repositories</span></h2>
             <p class="lead-text" style="text-align: center; margin-bottom: 2rem;">Os meus projetos mais recentes no GitHub</p>
-            
             <div id="githubSkeleton" class="skeleton-grid">
                 <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
                 <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
                 <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
             </div>
-            
             <div id="reposContainer" class="repos-grid" style="display: none;"></div>
-            
             <div class="github-profile-link">
                 <a href="https://github.com/surfercris" target="_blank" class="github-btn">
                     <i class="fab fa-github"></i> Ver todos os repositórios
@@ -712,11 +651,10 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contacto -->
     <section class="section" id="contact">
         <div class="container">
             <h2 class="section-title">Entre em <span>Contacto</span></h2>
-            
             <div class="contact-info-form">
                 <div class="contact-details-form">
                     <h3><i class="fas fa-info-circle"></i> Informações</h3>
@@ -728,7 +666,6 @@
                     <hr style="margin: 1rem 0; border-color: var(--border-color);">
                     <p><i class="fas fa-clock"></i> Resposta em até 24h</p>
                 </div>
-                
                 <div class="contact-section">
                     <form id="contactForm">
                         <div class="form-group">
@@ -757,7 +694,7 @@
         </div>
     </section>
 
-    <!-- Media Gallery Section -->
+    <!-- Media Gallery -->
     <section class="section" id="media">
         <div class="container">
             <h2 class="section-title">Media <span>Gallery</span></h2>
@@ -775,7 +712,7 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills -->
     <section class="section" id="skills">
         <div class="container">
             <h2 class="section-title">Technical <span>Skills</span></h2>
@@ -798,7 +735,7 @@
         </div>
     </section>
 
-    <!-- Education Section -->
+    <!-- Education -->
     <section class="section" id="education">
         <div class="container">
             <h2 class="section-title">Academic <span>Education</span></h2>
@@ -809,7 +746,7 @@
         </div>
     </section>
 
-    <!-- Awards Section -->
+    <!-- Awards -->
     <section class="section" id="awards">
         <div class="container">
             <h2 class="section-title">Certifications <span>& Awards</span></h2>
@@ -826,160 +763,113 @@
 </main>
 
 <script>
-    // ========== THREE.JS - ANIMAÇÃO 3D ==========
-    const canvas3d = document.getElementById('canvas3d');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, alpha: true });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0); // Transparente
-    
-    // Criar geometria de um toro (argola 3D) e um cubo
-    const geometry1 = new THREE.TorusKnotGeometry(1.2, 0.3, 200, 32);
-    const geometry2 = new THREE.IcosahedronGeometry(0.8, 0);
-    const geometry3 = new THREE.SphereGeometry(0.5, 32, 32);
-    
-    // Materiais com cores diferentes
-    const material1 = new THREE.MeshStandardMaterial({ color: 0x605443, roughness: 0.3, metalness: 0.7, emissive: 0x1a1a2e });
-    const material2 = new THREE.MeshStandardMaterial({ color: 0x8b6b54, roughness: 0.2, metalness: 0.8 });
-    const material3 = new THREE.MeshStandardMaterial({ color: 0x4a3d32, roughness: 0.4, metalness: 0.5, emissive: 0x1a1a2e });
-    
-    // Criar objetos
-    const torusKnot = new THREE.Mesh(geometry1, material1);
-    const icosahedron = new THREE.Mesh(geometry2, material2);
-    const sphere = new THREE.Mesh(geometry3, material3);
-    
-    // Posicionar objetos
-    torusKnot.position.x = -2;
-    torusKnot.position.y = 1;
-    icosahedron.position.x = 2;
-    icosahedron.position.y = -1;
-    sphere.position.x = 0;
-    sphere.position.y = 2;
-    
-    scene.add(torusKnot);
-    scene.add(icosahedron);
-    scene.add(sphere);
-    
-    // Adicionar partículas (estrelas)
-    const starGeometry = new THREE.BufferGeometry();
-    const starCount = 1500;
-    const starPositions = new Float32Array(starCount * 3);
-    
-    for (let i = 0; i < starCount; i++) {
-        starPositions[i * 3] = (Math.random() - 0.5) * 200;
-        starPositions[i * 3 + 1] = (Math.random() - 0.5) * 100;
-        starPositions[i * 3 + 2] = (Math.random() - 0.5) * 100 - 50;
-    }
-    
-    starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-    const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.15, transparent: true, opacity: 0.6 });
-    const stars = new THREE.Points(starGeometry, starMaterial);
-    scene.add(stars);
-    
-    // Adicionar partículas coloridas (pequenas)
-    const colorParticleCount = 800;
-    const colorPositions = new Float32Array(colorParticleCount * 3);
-    const colorColors = new Float32Array(colorParticleCount * 3);
-    
-    for (let i = 0; i < colorParticleCount; i++) {
-        colorPositions[i * 3] = (Math.random() - 0.5) * 150;
-        colorPositions[i * 3 + 1] = (Math.random() - 0.5) * 80;
-        colorPositions[i * 3 + 2] = (Math.random() - 0.5) * 80 - 40;
-        
-        // Cores: tons de laranja/dourado
-        colorColors[i * 3] = 0.8 + Math.random() * 0.2;     // R
-        colorColors[i * 3 + 1] = 0.5 + Math.random() * 0.3; // G
-        colorColors[i * 3 + 2] = 0.3 + Math.random() * 0.2; // B
-    }
-    
-    const colorParticleGeometry = new THREE.BufferGeometry();
-    colorParticleGeometry.setAttribute('position', new THREE.BufferAttribute(colorPositions, 3));
-    colorParticleGeometry.setAttribute('color', new THREE.BufferAttribute(colorColors, 3));
-    const colorParticleMaterial = new THREE.PointsMaterial({ size: 0.1, vertexColors: true, transparent: true });
-    const colorParticles = new THREE.Points(colorParticleGeometry, colorParticleMaterial);
-    scene.add(colorParticles);
-    
-    // Luzes
-    const ambientLight = new THREE.AmbientLight(0x404040);
-    scene.add(ambientLight);
-    
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 10, 7);
-    scene.add(directionalLight);
-    
-    const backLight = new THREE.PointLight(0x605443, 0.5);
-    backLight.position.set(-3, 2, -4);
-    scene.add(backLight);
-    
-    const fillLight = new THREE.PointLight(0x8b6b54, 0.3);
-    fillLight.position.set(3, 1, 2);
-    scene.add(fillLight);
-    
-    camera.position.z = 8;
-    
-    // Variáveis para animação suave
-    let time = 0;
-    
-    // Animação
-    function animate3d() {
-        requestAnimationFrame(animate3d);
-        
-        time += 0.008;
-        
-        // Rotação dos objetos principais
-        torusKnot.rotation.x += 0.008;
-        torusKnot.rotation.y += 0.012;
-        torusKnot.rotation.z += 0.005;
-        
-        icosahedron.rotation.x += 0.01;
-        icosahedron.rotation.y -= 0.008;
-        
-        sphere.rotation.x -= 0.006;
-        sphere.rotation.y += 0.01;
-        
-        // Movimento suave de flutuação
-        torusKnot.position.y = 1 + Math.sin(time * 1.5) * 0.2;
-        icosahedron.position.y = -1 + Math.cos(time * 1.2) * 0.2;
-        sphere.position.y = 2 + Math.sin(time * 2) * 0.15;
-        
-        // Rotação das estrelas
-        stars.rotation.y += 0.0005;
-        stars.rotation.x += 0.0003;
-        
-        colorParticles.rotation.y -= 0.0004;
-        colorParticles.rotation.x += 0.0002;
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate3d();
-    
-    // Ajustar ao redimensionar a janela
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+    // ========== THREE.JS - INICIAR DEPOIS DA PÁGINA CARREGAR ==========
+    window.addEventListener('load', function() {
+        if (typeof THREE !== 'undefined') {
+            const canvas3d = document.getElementById('canvas3d');
+            if (!canvas3d) return;
+            
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            
+            // Geometrias
+            const geometry1 = new THREE.TorusKnotGeometry(1.2, 0.3, 200, 32);
+            const geometry2 = new THREE.IcosahedronGeometry(0.8, 0);
+            const geometry3 = new THREE.SphereGeometry(0.5, 32, 32);
+            
+            // Materiais
+            const material1 = new THREE.MeshStandardMaterial({ color: 0x605443, roughness: 0.3, metalness: 0.7 });
+            const material2 = new THREE.MeshStandardMaterial({ color: 0x8b6b54, roughness: 0.2, metalness: 0.8 });
+            const material3 = new THREE.MeshStandardMaterial({ color: 0x4a3d32, roughness: 0.4, metalness: 0.5 });
+            
+            // Objetos
+            const torusKnot = new THREE.Mesh(geometry1, material1);
+            const icosahedron = new THREE.Mesh(geometry2, material2);
+            const sphere = new THREE.Mesh(geometry3, material3);
+            
+            torusKnot.position.set(-2, 1, 0);
+            icosahedron.position.set(2, -1, 0);
+            sphere.position.set(0, 2, 0);
+            
+            scene.add(torusKnot);
+            scene.add(icosahedron);
+            scene.add(sphere);
+            
+            // Estrelas
+            const starGeometry = new THREE.BufferGeometry();
+            const starCount = 1500;
+            const starPositions = new Float32Array(starCount * 3);
+            for (let i = 0; i < starCount; i++) {
+                starPositions[i * 3] = (Math.random() - 0.5) * 200;
+                starPositions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+                starPositions[i * 3 + 2] = (Math.random() - 0.5) * 100 - 50;
+            }
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+            const stars = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.15, transparent: true }));
+            scene.add(stars);
+            
+            // Luzes
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 10, 7);
+            scene.add(directionalLight);
+            
+            camera.position.z = 8;
+            
+            let time = 0;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.008;
+                
+                torusKnot.rotation.x += 0.008;
+                torusKnot.rotation.y += 0.012;
+                icosahedron.rotation.x += 0.01;
+                icosahedron.rotation.y -= 0.008;
+                sphere.rotation.x -= 0.006;
+                sphere.rotation.y += 0.01;
+                
+                torusKnot.position.y = 1 + Math.sin(time * 1.5) * 0.2;
+                icosahedron.position.y = -1 + Math.cos(time * 1.2) * 0.2;
+                sphere.position.y = 2 + Math.sin(time * 2) * 0.15;
+                
+                stars.rotation.y += 0.0005;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
     });
 
     // ========== CONTADOR DE VISITAS ==========
     function updateVisitorCounter() {
         let visits = localStorage.getItem('portfolioVisits');
-        if (visits === null) { visits = 1; }
-        else { visits = parseInt(visits) + 1; }
+        if (visits === null) visits = 1;
+        else visits = parseInt(visits) + 1;
         localStorage.setItem('portfolioVisits', visits);
         document.getElementById('visitorCount').textContent = visits;
     }
     updateVisitorCounter();
 
-    // ========== BACK TO TOP BUTTON ==========
+    // ========== BACK TO TOP ==========
     const backToTopBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) { backToTopBtn.classList.add('show'); }
-        else { backToTopBtn.classList.remove('show'); }
+        if (window.scrollY > 300) backToTopBtn.classList.add('show');
+        else backToTopBtn.classList.remove('show');
     });
-    backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // ========== MENU MOBILE ==========
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1006,11 +896,11 @@
         }
     }
 
-    if (mobileMenuBtn) { mobileMenuBtn.addEventListener('click', toggleMobileMenu); }
-    if (menuOverlay) { menuOverlay.addEventListener('click', closeMobileMenu); }
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    if (menuOverlay) menuOverlay.addEventListener('click', closeMobileMenu);
 
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => { if (window.innerWidth <= 768) { closeMobileMenu(); } });
+        link.addEventListener('click', () => { if (window.innerWidth <= 768) closeMobileMenu(); });
     });
 
     window.addEventListener('resize', () => {
@@ -1021,13 +911,12 @@
         }
     });
 
-    // ========== ACCESSIBILITY PANEL ==========
+    // ========== ACCESSIBILITY ==========
     const accessibilityToggle = document.getElementById('accessibilityToggle');
     const accessibilityPanel = document.getElementById('accessibilityPanel');
-    
     accessibilityToggle.addEventListener('click', () => {
-        if (accessibilityPanel.style.display === 'none') { accessibilityPanel.style.display = 'flex'; }
-        else { accessibilityPanel.style.display = 'none'; }
+        if (accessibilityPanel.style.display === 'none') accessibilityPanel.style.display = 'flex';
+        else accessibilityPanel.style.display = 'none';
     });
     
     const fontIncrease = document.getElementById('fontIncrease');
@@ -1053,12 +942,10 @@
     
     const contrastToggle = document.getElementById('contrastToggle');
     let highContrast = localStorage.getItem('highContrast') === 'true';
-    
     if (highContrast && contrastToggle) {
         document.documentElement.setAttribute('data-contrast', 'high');
         contrastToggle.classList.add('active');
     }
-    
     if (contrastToggle) {
         contrastToggle.addEventListener('click', () => {
             if (document.documentElement.getAttribute('data-contrast') === 'high') {
@@ -1075,12 +962,10 @@
     
     const underlineLinks = document.getElementById('underlineLinks');
     let linksUnderlined = localStorage.getItem('linksUnderlined') === 'true';
-    
     if (linksUnderlined && underlineLinks) {
         document.documentElement.setAttribute('data-underline-links', 'true');
         underlineLinks.classList.add('active');
     }
-    
     if (underlineLinks) {
         underlineLinks.addEventListener('click', () => {
             if (document.documentElement.getAttribute('data-underline-links') === 'true') {
@@ -1108,7 +993,7 @@
         });
     }
 
-    // ========== FORMULÁRIO DE CONTACTO ==========
+    // ========== FORMULÁRIO ==========
     const contactForm = document.getElementById('contactForm');
     const formMessage = document.getElementById('formMessage');
     const submitBtn = document.getElementById('submitBtn');
@@ -1129,7 +1014,7 @@
                     formMessage.className = 'form-message success';
                     formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Mensagem enviada com sucesso! Entrarei em contacto brevemente.';
                     contactForm.reset();
-                } else { throw new Error('Erro ao enviar'); }
+                } else throw new Error('Erro ao enviar');
             } catch (error) {
                 formMessage.className = 'form-message error';
                 formMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao enviar mensagem. Tenta novamente.';
@@ -1193,7 +1078,7 @@
     // ========== ANO ATUAL ==========
     document.getElementById('ano').textContent = new Date().getFullYear();
 
-    // ========== DARK/LIGHT MODE ==========
+    // ========== DARK MODE ==========
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('i');
     const savedTheme = localStorage.getItem('theme');
@@ -1259,11 +1144,11 @@
         });
     });
 
-    // ========== DADOS DA GALERIA ==========
+    // ========== GALERIA ==========
     const imagens = [
-        { src: "assets/teste.png", titulo: "Teste 1", descricao: "Projeto no Blender", tipo: "image" },
-        { src: "assets/imagem2.jpg", titulo: "Teste 2", descricao: "Design Gráfico", tipo: "image" },
-        { src: "assets/imagem3.jpg", titulo: "Teste 3", descricao: "Animação", tipo: "image" }
+        { src: "assets/imagem1.jpg", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
+        { src: "assets/imagem2.jpg", titulo: "Meu Trabalho 2", descricao: "Design Gráfico", tipo: "image" },
+        { src: "assets/imagem3.jpg", titulo: "Meu Trabalho 3", descricao: "Animação", tipo: "image" }
     ];
 
     const videos = [
@@ -1321,9 +1206,9 @@
             if (!galleryContainer) return;
             galleryContainer.innerHTML = '';
             let itens = [];
-            if (filtro === 'all') { itens = [...imagens, ...videos]; }
-            else if (filtro === 'image') { itens = [...imagens]; }
-            else if (filtro === 'video') { itens = [...videos]; }
+            if (filtro === 'all') itens = [...imagens, ...videos];
+            else if (filtro === 'image') itens = [...imagens];
+            else if (filtro === 'video') itens = [...videos];
             if (itens.length === 0) {
                 galleryContainer.innerHTML = '<div style="text-align:center; padding:2rem;">Nenhum item encontrado</div>';
                 hideSkeleton();
@@ -1377,12 +1262,9 @@
     carregarGaleria('all');
     fetchGitHubRepos();
     
-    if (localStorage.getItem('fontSize')) { setFontSize(localStorage.getItem('fontSize')); }
+    if (localStorage.getItem('fontSize')) setFontSize(localStorage.getItem('fontSize'));
     
     console.log('✅ Portfólio carregado com Three.js 3D!');
 </script>
-
-<!-- Three.js CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </body>
 </html>
