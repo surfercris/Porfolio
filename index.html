@@ -2,8 +2,8 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miguel Lamego | Portfólio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Miguel Lamego | Portfólio 3D</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,40 +11,40 @@
     <style>
         /* ========== VARIÁVEIS ========== */
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #0f0f1a;
-            --bg-card: #1a1a2e;
-            --bg-card-hover: #22223b;
+            --bg-primary: rgba(10, 10, 15, 0.85);
+            --bg-secondary: rgba(15, 15, 26, 0.9);
+            --bg-card: rgba(26, 26, 46, 0.8);
+            --bg-card-hover: rgba(34, 34, 59, 0.9);
             --text-primary: #ffffff;
             --text-secondary: #aaa;
-            --border-color: #222;
+            --border-color: rgba(34, 34, 34, 0.5);
             --accent-color: #605443;
             --accent-hover: #8b6b54;
             --shadow: rgba(0,0,0,0.3);
             --font-size-base: 16px;
-            --input-bg: #1a1a2e;
+            --input-bg: rgba(26, 26, 46, 0.8);
         }
         
         [data-theme="light"] {
-            --bg-primary: #f5f5f7;
-            --bg-secondary: #ffffff;
-            --bg-card: #e8e8ec;
-            --bg-card-hover: #d4d4dc;
+            --bg-primary: rgba(245, 245, 247, 0.9);
+            --bg-secondary: rgba(255, 255, 255, 0.95);
+            --bg-card: rgba(232, 232, 236, 0.9);
+            --bg-card-hover: rgba(212, 212, 220, 0.95);
             --text-primary: #1a1a2e;
             --text-secondary: #555;
-            --border-color: #ddd;
+            --border-color: rgba(221, 221, 221, 0.5);
             --accent-color: #605443;
             --accent-hover: #4a3d32;
             --shadow: rgba(0,0,0,0.1);
-            --input-bg: #ffffff;
+            --input-bg: rgba(255, 255, 255, 0.9);
         }
         
         /* Alto Contraste */
         [data-contrast="high"] {
-            --bg-primary: #000000;
-            --bg-secondary: #000000;
-            --bg-card: #1a1a1a;
-            --bg-card-hover: #2a2a2a;
+            --bg-primary: rgba(0, 0, 0, 0.95);
+            --bg-secondary: rgba(0, 0, 0, 0.98);
+            --bg-card: rgba(26, 26, 26, 0.95);
+            --bg-card-hover: rgba(42, 42, 42, 0.98);
             --text-primary: #ffffff;
             --text-secondary: #ffff00;
             --border-color: #ffffff;
@@ -58,13 +58,8 @@
             font-size: var(--font-size-base);
         }
         
-        [data-font-size="large"] {
-            --font-size-base: 18px;
-        }
-        
-        [data-font-size="xlarge"] {
-            --font-size-base: 20px;
-        }
+        [data-font-size="large"] { --font-size-base: 18px; }
+        [data-font-size="xlarge"] { --font-size-base: 20px; }
         
         /* Sublinhar links */
         [data-underline-links="true"] a:not(.social-link):not(.project-link):not(.github-btn) {
@@ -75,15 +70,15 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Poppins', sans-serif; 
-            background: var(--bg-primary); 
+            background: #0a0a0f;
             color: var(--text-primary);
-            transition: background 0.3s, color 0.3s, font-size 0.2s;
+            transition: color 0.3s, font-size 0.2s;
             overflow-x: hidden;
             font-size: var(--font-size-base);
         }
         
-        /* Particle Background */
-        #particles {
+        /* Canvas 3D - Three.js */
+        #canvas3d {
             position: fixed;
             top: 0;
             left: 0;
@@ -91,47 +86,6 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-        }
-        
-        /* ========== MENU MOBILE ========== */
-        .mobile-menu-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 45px;
-            height: 45px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1001;
-            transition: 0.3s;
-            border: none;
-            color: white;
-            font-size: 1.3rem;
-        }
-        .mobile-menu-btn:hover {
-            transform: scale(1.1);
-            background: var(--accent-hover);
-        }
-        
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .menu-overlay.active {
-            display: block;
-            opacity: 1;
         }
         
         /* Accessibility Panel */
@@ -270,39 +224,40 @@
             color: var(--accent-color);
         }
 
-        /* Loading Skeleton */
-        .skeleton-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 45px;
+            height: 45px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            transition: 0.3s;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
         }
-        .skeleton-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            overflow: hidden;
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
         }
-        .skeleton-thumb {
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 120px;
-            background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
         }
-        .skeleton-text {
-            height: 15px;
-            background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 5px;
-            margin: 10px;
-        }
-        .skeleton-text.short { width: 60%; }
-        .skeleton-text.long { width: 90%; }
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
+        .menu-overlay.active { display: block; }
 
         /* Navigation */
         .navbar {
@@ -317,6 +272,7 @@
             z-index: 1000;
             transition: transform 0.3s ease, background 0.3s;
             overflow-y: auto;
+            backdrop-filter: blur(10px);
         }
         
         .clock-box {
@@ -325,6 +281,7 @@
             background: var(--bg-card);
             border-radius: 15px;
             margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
         }
         .clock { font-size: 1.2rem; font-weight: 600; font-family: monospace; }
         .date { font-size: 0.7rem; opacity: 0.7; }
@@ -373,14 +330,14 @@
         .typed-text { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 1rem; }
         .lead-text { color: var(--text-secondary); line-height: 1.6; }
         .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
-        .info-card { background: var(--bg-card); padding: 1rem; border-radius: 10px; text-align: center; transition: 0.3s; }
+        .info-card { background: var(--bg-card); padding: 1rem; border-radius: 10px; text-align: center; transition: 0.3s; backdrop-filter: blur(5px); }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px var(--shadow); }
         .info-card i { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 0.5rem; }
         .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
-        .tech-tag { background: var(--bg-card); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; transition: 0.3s; cursor: default; }
+        .tech-tag { background: var(--bg-card); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; transition: 0.3s; cursor: default; backdrop-filter: blur(5px); }
         .tech-tag:hover { background: var(--accent-color); transform: scale(1.05); color: white; }
         .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
-        .social-link { width: 40px; height: 40px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-primary); text-decoration: none; transition: 0.3s; }
+        .social-link { width: 40px; height: 40px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-primary); text-decoration: none; transition: 0.3s; backdrop-filter: blur(5px); }
         .social-link:hover { background: var(--accent-color); transform: translateY(-3px); color: white; }
 
         /* Timeline */
@@ -392,17 +349,13 @@
         @keyframes slideInLeft { to { opacity: 1; transform: translateX(0); } }
         .timeline-dot { position: absolute; left: -2.1rem; top: 0; width: 12px; height: 12px; background: var(--accent-color); border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
-        .timeline-content { background: var(--bg-card); padding: 1rem; border-radius: 10px; transition: 0.3s; }
+        .timeline-content { background: var(--bg-card); padding: 1rem; border-radius: 10px; transition: 0.3s; backdrop-filter: blur(5px); }
         .timeline-content:hover { transform: translateX(10px); background: var(--bg-card-hover); }
         .timeline-date { color: var(--accent-color); font-size: 0.7rem; }
         .grade-badge { display: inline-block; background: var(--accent-color); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; margin-top: 0.5rem; color: white; }
 
-        /* Projects Cards */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
+        /* Projects */
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         .project-card {
             background: var(--bg-card);
             padding: 1.5rem;
@@ -413,6 +366,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.6s ease forwards;
+            backdrop-filter: blur(5px);
         }
         .project-card:nth-child(1) { animation-delay: 0.1s; }
         .project-card:nth-child(2) { animation-delay: 0.3s; }
@@ -438,71 +392,20 @@
             transform: scale(1.1) rotate(360deg);
             background: var(--accent-color);
         }
-        .project-icon i {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            transition: 0.3s;
-        }
+        .project-icon i { font-size: 1.5rem; color: var(--accent-color); transition: 0.3s; }
         .project-card:hover .project-icon i { color: white; }
         .project-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
         .project-card p { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem; }
-        
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: 0.3s;
-        }
-        .project-link:hover {
-            gap: 0.6rem;
-            color: var(--accent-hover);
-        }
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
-        }
-        .project-tech span {
-            background: rgba(96,84,67,0.2);
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-        }
+        .project-link { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--accent-color); text-decoration: none; font-size: 0.8rem; transition: 0.3s; }
+        .project-link:hover { gap: 0.6rem; color: var(--accent-hover); }
+        .project-tech { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 0.8rem; }
+        .project-tech span { background: rgba(96,84,67,0.2); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.65rem; color: var(--text-secondary); }
 
-        /* GitHub Repos Section */
-        .repos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .repo-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 1.2rem;
-            transition: all 0.3s;
-            border: 1px solid var(--border-color);
-        }
-        .repo-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 20px var(--shadow);
-        }
-        .repo-name {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
+        /* GitHub */
+        .repos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .repo-card { background: var(--bg-card); border-radius: 12px; padding: 1.2rem; transition: all 0.3s; border: 1px solid var(--border-color); backdrop-filter: blur(5px); }
+        .repo-card:hover { transform: translateY(-5px); border-color: var(--accent-color); box-shadow: 0 10px 20px var(--shadow); }
+        .repo-name { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
         .repo-name i { color: var(--accent-color); }
         .repo-name a { color: var(--text-primary); text-decoration: none; transition: 0.3s; }
         .repo-name a:hover { color: var(--accent-color); }
@@ -513,16 +416,15 @@
         .repo-language { display: inline-block; background: rgba(96,84,67,0.2); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.65rem; margin-top: 0.5rem; }
         .github-profile-link { text-align: center; margin-top: 2rem; }
         .github-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-color); color: white; padding: 0.5rem 1.2rem; border-radius: 30px; text-decoration: none; font-size: 0.8rem; transition: 0.3s; }
-        .github-btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
-        .error-message { text-align: center; padding: 2rem; color: var(--text-secondary); }
 
-        /* Contact Form */
+        /* Contact */
         .contact-section {
             background: var(--bg-card);
             border-radius: 20px;
             padding: 2rem;
             margin-top: 2rem;
             border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
         }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary); }
@@ -562,7 +464,7 @@
         .form-message.success { display: block; background: rgba(76, 175, 80, 0.2); border: 1px solid #4caf50; color: #4caf50; }
         .form-message.error { display: block; background: rgba(244, 67, 54, 0.2); border: 1px solid #f44336; color: #f44336; }
         .contact-info-form { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start; }
-        .contact-details-form { background: var(--bg-card); padding: 1.5rem; border-radius: 15px; border: 1px solid var(--border-color); }
+        .contact-details-form { background: var(--bg-card); padding: 1.5rem; border-radius: 15px; border: 1px solid var(--border-color); backdrop-filter: blur(5px); }
         .contact-details-form h3 { margin-bottom: 1rem; font-size: 1.1rem; }
         .contact-details-form p { margin: 0.8rem 0; display: flex; align-items: center; gap: 0.8rem; font-size: 0.85rem; }
         .contact-details-form i { color: var(--accent-color); width: 20px; }
@@ -586,7 +488,7 @@
         .filter-btn { background: var(--bg-card); border: none; padding: 0.5rem 1.5rem; border-radius: 30px; color: var(--text-primary); cursor: pointer; transition: 0.3s; }
         .filter-btn.active, .filter-btn:hover { background: var(--accent-color); transform: scale(1.05); color: white; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-        .gallery-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; }
+        .gallery-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; backdrop-filter: blur(5px); }
         .gallery-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px var(--shadow); }
         .gallery-thumb { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--bg-primary); }
         .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
@@ -599,7 +501,7 @@
 
         /* Awards */
         .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        .award-category { background: var(--bg-card); padding: 1rem; border-radius: 10px; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; }
+        .award-category { background: var(--bg-card); padding: 1rem; border-radius: 10px; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; backdrop-filter: blur(5px); }
         .award-category:nth-child(1) { animation-delay: 0.1s; }
         .award-category:nth-child(2) { animation-delay: 0.3s; }
         .award-category:hover { transform: translateY(-5px); border: 1px solid rgba(96,84,67,0.3); }
@@ -617,39 +519,32 @@
         .video-modal-content { width: 90%; max-width: 800px; position: relative; }
         .video-modal-close { position: absolute; top: -35px; right: 0; font-size: 25px; color: white; cursor: pointer; background: none; border: none; }
         .video-modal-content iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; }
-
         .lightbox-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; }
         .lightbox-modal.active { opacity: 1; visibility: visible; }
         .lightbox-content { max-width: 90%; max-height: 90%; text-align: center; }
         .lightbox-content img { max-width: 100%; max-height: 80vh; border-radius: 10px; }
         .lightbox-close { position: absolute; top: 20px; right: 40px; font-size: 35px; color: white; cursor: pointer; }
 
-        /* ========== RESPONSIVE ========== */
+        /* Loading Skeleton */
+        .skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+        .skeleton-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; }
+        .skeleton-thumb { width: 100%; height: 120px; background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+        .skeleton-text { height: 15px; background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 5px; margin: 10px; }
+        .skeleton-text.short { width: 60%; }
+        .skeleton-text.long { width: 90%; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: flex;
-            }
+            .mobile-menu-btn { display: flex; }
             .navbar {
                 width: 260px;
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100vh;
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
-                z-index: 1000;
             }
-            .navbar.mobile-open {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-                padding: 2rem 1rem;
-                padding-top: 80px;
-            }
-            .info-grid, .projects-grid, .skills-container, .awards-grid, .gallery-grid, .repos-grid, .contact-info-form {
-                grid-template-columns: 1fr;
-            }
+            .navbar.mobile-open { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 2rem 1rem; padding-top: 80px; }
+            .info-grid, .projects-grid, .skills-container, .awards-grid, .gallery-grid, .repos-grid, .contact-info-form { grid-template-columns: 1fr; }
             .glow-text { font-size: 2rem; }
             .timeline { padding-left: 1rem; }
             .accessibility-panel { right: 70px; padding: 5px 10px; gap: 5px; }
@@ -663,15 +558,15 @@
 </head>
 <body>
 
-<!-- Particle Background -->
-<canvas id="particles"></canvas>
+<!-- Canvas 3D - Three.js -->
+<canvas id="canvas3d"></canvas>
 
 <!-- Botão hambúrguer para mobile -->
 <button class="mobile-menu-btn" id="mobileMenuBtn">
     <i class="fas fa-bars"></i>
 </button>
 
-<!-- Overlay para fechar menu ao clicar fora -->
+<!-- Overlay para fechar menu -->
 <div class="menu-overlay" id="menuOverlay"></div>
 
 <!-- Visitor Counter -->
@@ -931,14 +826,148 @@
 </main>
 
 <script>
+    // ========== THREE.JS - ANIMAÇÃO 3D ==========
+    const canvas3d = document.getElementById('canvas3d');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, alpha: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0); // Transparente
+    
+    // Criar geometria de um toro (argola 3D) e um cubo
+    const geometry1 = new THREE.TorusKnotGeometry(1.2, 0.3, 200, 32);
+    const geometry2 = new THREE.IcosahedronGeometry(0.8, 0);
+    const geometry3 = new THREE.SphereGeometry(0.5, 32, 32);
+    
+    // Materiais com cores diferentes
+    const material1 = new THREE.MeshStandardMaterial({ color: 0x605443, roughness: 0.3, metalness: 0.7, emissive: 0x1a1a2e });
+    const material2 = new THREE.MeshStandardMaterial({ color: 0x8b6b54, roughness: 0.2, metalness: 0.8 });
+    const material3 = new THREE.MeshStandardMaterial({ color: 0x4a3d32, roughness: 0.4, metalness: 0.5, emissive: 0x1a1a2e });
+    
+    // Criar objetos
+    const torusKnot = new THREE.Mesh(geometry1, material1);
+    const icosahedron = new THREE.Mesh(geometry2, material2);
+    const sphere = new THREE.Mesh(geometry3, material3);
+    
+    // Posicionar objetos
+    torusKnot.position.x = -2;
+    torusKnot.position.y = 1;
+    icosahedron.position.x = 2;
+    icosahedron.position.y = -1;
+    sphere.position.x = 0;
+    sphere.position.y = 2;
+    
+    scene.add(torusKnot);
+    scene.add(icosahedron);
+    scene.add(sphere);
+    
+    // Adicionar partículas (estrelas)
+    const starGeometry = new THREE.BufferGeometry();
+    const starCount = 1500;
+    const starPositions = new Float32Array(starCount * 3);
+    
+    for (let i = 0; i < starCount; i++) {
+        starPositions[i * 3] = (Math.random() - 0.5) * 200;
+        starPositions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+        starPositions[i * 3 + 2] = (Math.random() - 0.5) * 100 - 50;
+    }
+    
+    starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.15, transparent: true, opacity: 0.6 });
+    const stars = new THREE.Points(starGeometry, starMaterial);
+    scene.add(stars);
+    
+    // Adicionar partículas coloridas (pequenas)
+    const colorParticleCount = 800;
+    const colorPositions = new Float32Array(colorParticleCount * 3);
+    const colorColors = new Float32Array(colorParticleCount * 3);
+    
+    for (let i = 0; i < colorParticleCount; i++) {
+        colorPositions[i * 3] = (Math.random() - 0.5) * 150;
+        colorPositions[i * 3 + 1] = (Math.random() - 0.5) * 80;
+        colorPositions[i * 3 + 2] = (Math.random() - 0.5) * 80 - 40;
+        
+        // Cores: tons de laranja/dourado
+        colorColors[i * 3] = 0.8 + Math.random() * 0.2;     // R
+        colorColors[i * 3 + 1] = 0.5 + Math.random() * 0.3; // G
+        colorColors[i * 3 + 2] = 0.3 + Math.random() * 0.2; // B
+    }
+    
+    const colorParticleGeometry = new THREE.BufferGeometry();
+    colorParticleGeometry.setAttribute('position', new THREE.BufferAttribute(colorPositions, 3));
+    colorParticleGeometry.setAttribute('color', new THREE.BufferAttribute(colorColors, 3));
+    const colorParticleMaterial = new THREE.PointsMaterial({ size: 0.1, vertexColors: true, transparent: true });
+    const colorParticles = new THREE.Points(colorParticleGeometry, colorParticleMaterial);
+    scene.add(colorParticles);
+    
+    // Luzes
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 10, 7);
+    scene.add(directionalLight);
+    
+    const backLight = new THREE.PointLight(0x605443, 0.5);
+    backLight.position.set(-3, 2, -4);
+    scene.add(backLight);
+    
+    const fillLight = new THREE.PointLight(0x8b6b54, 0.3);
+    fillLight.position.set(3, 1, 2);
+    scene.add(fillLight);
+    
+    camera.position.z = 8;
+    
+    // Variáveis para animação suave
+    let time = 0;
+    
+    // Animação
+    function animate3d() {
+        requestAnimationFrame(animate3d);
+        
+        time += 0.008;
+        
+        // Rotação dos objetos principais
+        torusKnot.rotation.x += 0.008;
+        torusKnot.rotation.y += 0.012;
+        torusKnot.rotation.z += 0.005;
+        
+        icosahedron.rotation.x += 0.01;
+        icosahedron.rotation.y -= 0.008;
+        
+        sphere.rotation.x -= 0.006;
+        sphere.rotation.y += 0.01;
+        
+        // Movimento suave de flutuação
+        torusKnot.position.y = 1 + Math.sin(time * 1.5) * 0.2;
+        icosahedron.position.y = -1 + Math.cos(time * 1.2) * 0.2;
+        sphere.position.y = 2 + Math.sin(time * 2) * 0.15;
+        
+        // Rotação das estrelas
+        stars.rotation.y += 0.0005;
+        stars.rotation.x += 0.0003;
+        
+        colorParticles.rotation.y -= 0.0004;
+        colorParticles.rotation.x += 0.0002;
+        
+        renderer.render(scene, camera);
+    }
+    
+    animate3d();
+    
+    // Ajustar ao redimensionar a janela
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
     // ========== CONTADOR DE VISITAS ==========
     function updateVisitorCounter() {
         let visits = localStorage.getItem('portfolioVisits');
-        if (visits === null) {
-            visits = 1;
-        } else {
-            visits = parseInt(visits) + 1;
-        }
+        if (visits === null) { visits = 1; }
+        else { visits = parseInt(visits) + 1; }
         localStorage.setItem('portfolioVisits', visits);
         document.getElementById('visitorCount').textContent = visits;
     }
@@ -947,17 +976,12 @@
     // ========== BACK TO TOP BUTTON ==========
     const backToTopBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
+        if (window.scrollY > 300) { backToTopBtn.classList.add('show'); }
+        else { backToTopBtn.classList.remove('show'); }
     });
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-    // ========== MENU MOBILE (HAMBÚRGUER) ==========
+    // ========== MENU MOBILE ==========
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const menuOverlay = document.getElementById('menuOverlay');
     const navbar = document.getElementById('sideNav');
@@ -982,24 +1006,13 @@
         }
     }
 
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-    }
+    if (mobileMenuBtn) { mobileMenuBtn.addEventListener('click', toggleMobileMenu); }
+    if (menuOverlay) { menuOverlay.addEventListener('click', closeMobileMenu); }
 
-    if (menuOverlay) {
-        menuOverlay.addEventListener('click', closeMobileMenu);
-    }
-
-    // Fechar menu ao clicar num link
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                closeMobileMenu();
-            }
-        });
+        link.addEventListener('click', () => { if (window.innerWidth <= 768) { closeMobileMenu(); } });
     });
 
-    // Fechar menu ao redimensionar para desktop
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768 && navbar) {
             navbar.classList.remove('mobile-open');
@@ -1013,11 +1026,8 @@
     const accessibilityPanel = document.getElementById('accessibilityPanel');
     
     accessibilityToggle.addEventListener('click', () => {
-        if (accessibilityPanel.style.display === 'none') {
-            accessibilityPanel.style.display = 'flex';
-        } else {
-            accessibilityPanel.style.display = 'none';
-        }
+        if (accessibilityPanel.style.display === 'none') { accessibilityPanel.style.display = 'flex'; }
+        else { accessibilityPanel.style.display = 'none'; }
     });
     
     const fontIncrease = document.getElementById('fontIncrease');
@@ -1102,38 +1112,27 @@
     const contactForm = document.getElementById('contactForm');
     const formMessage = document.getElementById('formMessage');
     const submitBtn = document.getElementById('submitBtn');
-
-    // IMPORTANTE: Substituir pelo teu endpoint do Formspree
-    // Cria conta em formspree.io e coloca o teu ID aqui - https://formspree.io/forms/mdajggoa/overview 
-    const FORMSPREE_ID = 'mdajggoa'; // <-- SUBSTITUI PELO TEU ID DO FORMSPREE
+    const FORMSPREE_ID = 'mdajggoa';
     
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-            
             const formData = new FormData(contactForm);
             formData.append('_subject', 'Novo contacto do portfólio!');
-            
             try {
                 const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
+                    method: 'POST', body: formData, headers: { 'Accept': 'application/json' }
                 });
-                
                 if (response.ok) {
                     formMessage.className = 'form-message success';
                     formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Mensagem enviada com sucesso! Entrarei em contacto brevemente.';
                     contactForm.reset();
-                } else {
-                    throw new Error('Erro ao enviar');
-                }
+                } else { throw new Error('Erro ao enviar'); }
             } catch (error) {
                 formMessage.className = 'form-message error';
-                formMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao enviar mensagem. Tenta novamente ou envia email diretamente.';
+                formMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao enviar mensagem. Tenta novamente.';
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensagem';
@@ -1147,31 +1146,19 @@
         const username = 'surfercris';
         const reposContainer = document.getElementById('reposContainer');
         const githubSkeleton = document.getElementById('githubSkeleton');
-        
         try {
             const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
-            
-            if (!response.ok) {
-                throw new Error('Erro ao carregar repositórios');
-            }
-            
+            if (!response.ok) throw new Error('Erro');
             const repos = await response.json();
-            
             if (githubSkeleton) githubSkeleton.style.display = 'none';
             if (reposContainer) reposContainer.style.display = 'grid';
-            
             reposContainer.innerHTML = '';
-            
             repos.forEach(repo => {
                 const card = document.createElement('div');
                 card.className = 'repo-card';
                 const updatedDate = new Date(repo.updated_at).toLocaleDateString('pt-PT');
-                
                 card.innerHTML = `
-                    <div class="repo-name">
-                        <i class="fab fa-github"></i>
-                        <a href="${repo.html_url}" target="_blank">${repo.name}</a>
-                    </div>
+                    <div class="repo-name"><i class="fab fa-github"></i><a href="${repo.html_url}" target="_blank">${repo.name}</a></div>
                     <div class="repo-desc">${repo.description || 'Sem descrição'}</div>
                     <div class="repo-stats">
                         <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
@@ -1182,13 +1169,11 @@
                 `;
                 reposContainer.appendChild(card);
             });
-            
         } catch (error) {
-            console.error('Erro ao buscar repositórios:', error);
             if (githubSkeleton) githubSkeleton.style.display = 'none';
             if (reposContainer) {
                 reposContainer.style.display = 'grid';
-                reposContainer.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i> Erro ao carregar repositórios. Tente novamente mais tarde.</div>';
+                reposContainer.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i> Erro ao carregar repositórios.</div>';
             }
         }
     }
@@ -1197,70 +1182,12 @@
     function showSkeleton() {
         const skeleton = document.getElementById('skeletonContainer');
         const gallery = document.getElementById('galleryContainer');
-        if (skeleton && gallery) {
-            skeleton.style.display = 'grid';
-            gallery.style.display = 'none';
-        }
+        if (skeleton && gallery) { skeleton.style.display = 'grid'; gallery.style.display = 'none'; }
     }
     function hideSkeleton() {
         const skeleton = document.getElementById('skeletonContainer');
         const gallery = document.getElementById('galleryContainer');
-        if (skeleton && gallery) {
-            skeleton.style.display = 'none';
-            gallery.style.display = 'grid';
-        }
-    }
-
-    // ========== PARTICLE BACKGROUND ==========
-    const canvas = document.getElementById('particles');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 100; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: Math.random() * 2 + 1,
-                    alpha: Math.random() * 0.5 + 0.2,
-                    speedX: (Math.random() - 0.5) * 0.3,
-                    speedY: (Math.random() - 0.5) * 0.3
-                });
-            }
-        }
-        
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let p of particles) {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(96, 84, 67, ${p.alpha})`;
-                ctx.fill();
-                p.x += p.speedX;
-                p.y += p.speedY;
-                if (p.x < 0) p.x = canvas.width;
-                if (p.x > canvas.width) p.x = 0;
-                if (p.y < 0) p.y = canvas.height;
-                if (p.y > canvas.height) p.y = 0;
-            }
-            requestAnimationFrame(animateParticles);
-        }
-        
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
-        
-        resizeCanvas();
-        initParticles();
-        animateParticles();
+        if (skeleton && gallery) { skeleton.style.display = 'none'; gallery.style.display = 'grid'; }
     }
 
     // ========== ANO ATUAL ==========
@@ -1269,26 +1196,21 @@
     // ========== DARK/LIGHT MODE ==========
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('i');
-    
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
+        themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun');
     }
-    
     themeToggle.addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         if (currentTheme === 'light') {
             document.documentElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'dark');
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
+            themeIcon.classList.remove('fa-sun'); themeIcon.classList.add('fa-moon');
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
+            themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun');
         }
     });
 
@@ -1308,13 +1230,8 @@
     function digitar() {
         if (!typedEl) return;
         const atual = frases[i];
-        if (apagando) {
-            typedEl.textContent = atual.substring(0, j - 1);
-            j--;
-        } else {
-            typedEl.textContent = atual.substring(0, j + 1);
-            j++;
-        }
+        if (apagando) { typedEl.textContent = atual.substring(0, j - 1); j--; }
+        else { typedEl.textContent = atual.substring(0, j + 1); j++; }
         if (!apagando && j === atual.length) { apagando = true; setTimeout(digitar, 2000); return; }
         if (apagando && j === 0) { apagando = false; i = (i + 1) % frases.length; }
         setTimeout(digitar, apagando ? 50 : 100);
@@ -1460,11 +1377,12 @@
     carregarGaleria('all');
     fetchGitHubRepos();
     
-    if (localStorage.getItem('fontSize')) {
-        setFontSize(localStorage.getItem('fontSize'));
-    }
+    if (localStorage.getItem('fontSize')) { setFontSize(localStorage.getItem('fontSize')); }
     
-    console.log('✅ Portfólio carregado com menu mobile!');
+    console.log('✅ Portfólio carregado com Three.js 3D!');
 </script>
+
+<!-- Three.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </body>
 </html>
