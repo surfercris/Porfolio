@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Three.js CDN - Carregar primeiro -->
+    <!-- Three.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <style>
@@ -451,6 +451,107 @@
         .gallery-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
         .gallery-info p { font-size: 0.7rem; color: var(--text-secondary); }
 
+        /* ========== LIGHTBOX COM NAVEGAÇÃO ========== */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .lightbox-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            font-size: 35px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.5);
+        }
+        .lightbox-close:hover {
+            transform: scale(1.1);
+            background: var(--accent-color);
+        }
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 10001;
+            border: none;
+        }
+        .lightbox-prev { left: -70px; }
+        .lightbox-next { right: -70px; }
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: var(--accent-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        .lightbox-title {
+            margin-top: 1rem;
+            color: white;
+            font-size: 1rem;
+        }
+        @media (max-width: 768px) {
+            .lightbox-prev { left: -50px; width: 35px; height: 35px; font-size: 1rem; }
+            .lightbox-next { right: -50px; width: 35px; height: 35px; font-size: 1rem; }
+            .lightbox-close { top: -30px; right: -30px; width: 30px; height: 30px; font-size: 25px; }
+            .lightbox-counter { bottom: -30px; font-size: 0.7rem; }
+        }
+
         .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
         .award-category { background: var(--bg-card); padding: 1rem; border-radius: 10px; transition: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease forwards; backdrop-filter: blur(5px); }
         .award-category:nth-child(1) { animation-delay: 0.1s; }
@@ -469,12 +570,6 @@
         .video-modal-content { width: 90%; max-width: 800px; position: relative; }
         .video-modal-close { position: absolute; top: -35px; right: 0; font-size: 25px; color: white; cursor: pointer; background: none; border: none; }
         .video-modal-content iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; }
-        
-        .lightbox-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; }
-        .lightbox-modal.active { opacity: 1; visibility: visible; }
-        .lightbox-content { max-width: 90%; max-height: 90%; text-align: center; }
-        .lightbox-content img { max-width: 100%; max-height: 80vh; border-radius: 10px; }
-        .lightbox-close { position: absolute; top: 20px; right: 40px; font-size: 35px; color: white; cursor: pointer; }
 
         .skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
         .skeleton-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; }
@@ -763,7 +858,7 @@
 </main>
 
 <script>
-    // ========== THREE.JS - INICIAR DEPOIS DA PÁGINA CARREGAR ==========
+    // ========== THREE.JS ==========
     window.addEventListener('load', function() {
         if (typeof THREE !== 'undefined') {
             const canvas3d = document.getElementById('canvas3d');
@@ -776,17 +871,14 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setClearColor(0x000000, 0);
             
-            // Geometrias
             const geometry1 = new THREE.TorusKnotGeometry(1.2, 0.3, 200, 32);
             const geometry2 = new THREE.IcosahedronGeometry(0.8, 0);
             const geometry3 = new THREE.SphereGeometry(0.5, 32, 32);
             
-            // Materiais
             const material1 = new THREE.MeshStandardMaterial({ color: 0x605443, roughness: 0.3, metalness: 0.7 });
             const material2 = new THREE.MeshStandardMaterial({ color: 0x8b6b54, roughness: 0.2, metalness: 0.8 });
             const material3 = new THREE.MeshStandardMaterial({ color: 0x4a3d32, roughness: 0.4, metalness: 0.5 });
             
-            // Objetos
             const torusKnot = new THREE.Mesh(geometry1, material1);
             const icosahedron = new THREE.Mesh(geometry2, material2);
             const sphere = new THREE.Mesh(geometry3, material3);
@@ -799,7 +891,6 @@
             scene.add(icosahedron);
             scene.add(sphere);
             
-            // Estrelas
             const starGeometry = new THREE.BufferGeometry();
             const starCount = 1500;
             const starPositions = new Float32Array(starCount * 3);
@@ -812,7 +903,6 @@
             const stars = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.15, transparent: true }));
             scene.add(stars);
             
-            // Luzes
             const ambientLight = new THREE.AmbientLight(0x404040);
             scene.add(ambientLight);
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -820,7 +910,6 @@
             scene.add(directionalLight);
             
             camera.position.z = 8;
-            
             let time = 0;
             
             function animate() {
@@ -842,7 +931,6 @@
                 
                 renderer.render(scene, camera);
             }
-            
             animate();
             
             window.addEventListener('resize', () => {
@@ -1144,11 +1232,11 @@
         });
     });
 
-    // ========== GALERIA ==========
+    // ========== DADOS DA GALERIA ==========
     const imagens = [
-        { src: "assets/teste.png", titulo: "Teste 1", descricao: "Projeto no Blender", tipo: "image" },
-        { src: "assets/imagem2.jpg", titulo: "Teste 2", descricao: "Design Gráfico", tipo: "image" },
-        { src: "assets/imagem3.jpg", titulo: "Teste 3", descricao: "Animação", tipo: "image" }
+        { src: "assets/imagem1.jpg", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
+        { src: "assets/imagem2.jpg", titulo: "Meu Trabalho 2", descricao: "Design Gráfico", tipo: "image" },
+        { src: "assets/imagem3.jpg", titulo: "Meu Trabalho 3", descricao: "Animação", tipo: "image" }
     ];
 
     const videos = [
@@ -1179,25 +1267,100 @@
         };
     }
 
-    function abrirImagem(src, titulo) {
+    // ========== LIGHTBOX COM NAVEGAÇÃO ==========
+    let currentImageIndex = 0;
+    let currentImagesList = [];
+
+    function abrirImagem(src, titulo, imageList, index) {
+        currentImagesList = imageList;
+        currentImageIndex = index;
+        
         const modal = document.createElement('div');
         modal.className = 'lightbox-modal';
         modal.innerHTML = `
             <div class="lightbox-content">
-                <span class="lightbox-close">&times;</span>
+                <button class="lightbox-close">&times;</button>
+                <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
                 <img src="${src}" alt="${titulo}">
-                <p style="margin-top: 1rem; color: white;">${titulo}</p>
+                <div class="lightbox-title">${titulo}</div>
+                <div class="lightbox-counter">${index + 1} / ${imageList.length}</div>
             </div>
         `;
+        
         document.body.appendChild(modal);
         document.body.style.overflow = 'hidden';
         setTimeout(() => modal.classList.add('active'), 10);
-        modal.onclick = (e) => {
-            if (e.target === modal || e.target.classList.contains('lightbox-close')) {
-                modal.classList.remove('active');
-                setTimeout(() => { modal.remove(); document.body.style.overflow = ''; }, 300);
+        
+        const prevBtn = modal.querySelector('.lightbox-prev');
+        const nextBtn = modal.querySelector('.lightbox-next');
+        const imgElement = modal.querySelector('img');
+        const titleElement = modal.querySelector('.lightbox-title');
+        const counterElement = modal.querySelector('.lightbox-counter');
+        
+        function updateImage() {
+            const newImg = currentImagesList[currentImageIndex];
+            imgElement.src = newImg.src;
+            titleElement.textContent = newImg.titulo;
+            counterElement.textContent = `${currentImageIndex + 1} / ${currentImagesList.length}`;
+        }
+        
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                updateImage();
             }
-        };
+        });
+        
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentImageIndex < currentImagesList.length - 1) {
+                currentImageIndex++;
+                updateImage();
+            }
+        });
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.remove();
+                document.body.style.overflow = '';
+            }, 300);
+        }
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('lightbox-close')) {
+                closeModal();
+            }
+        });
+        
+        function handleKeydown(e) {
+            if (e.key === 'ArrowLeft') {
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    updateImage();
+                }
+            } else if (e.key === 'ArrowRight') {
+                if (currentImageIndex < currentImagesList.length - 1) {
+                    currentImageIndex++;
+                    updateImage();
+                }
+            } else if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', handleKeydown);
+            }
+        }
+        
+        document.addEventListener('keydown', handleKeydown);
+        
+        const observer = new MutationObserver(() => {
+            if (!document.body.contains(modal)) {
+                document.removeEventListener('keydown', handleKeydown);
+                observer.disconnect();
+            }
+        });
+        observer.observe(document.body, { childList: true });
     }
 
     function carregarGaleria(filtro = 'all') {
@@ -1240,7 +1403,8 @@
                             <p>${item.descricao}</p>
                         </div>
                     `;
-                    card.onclick = () => abrirImagem(item.src, item.titulo);
+                    // Passar a lista completa de imagens e o índice para navegação
+                    card.onclick = () => abrirImagem(item.src, item.titulo, imagens, imagens.findIndex(img => img.src === item.src));
                 }
                 galleryContainer.appendChild(card);
             });
@@ -1264,7 +1428,7 @@
     
     if (localStorage.getItem('fontSize')) setFontSize(localStorage.getItem('fontSize'));
     
-    console.log('✅ Portfólio carregado com Three.js 3D!');
+    console.log('✅ Portfólio carregado com lightbox de navegação!');
 </script>
 </body>
 </html>
