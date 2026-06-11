@@ -907,7 +907,7 @@
                 starPositions1[i * 3 + 2] = radius * Math.cos(phi);
             }
             starGeometry1.setAttribute('position', new THREE.BufferAttribute(starPositions1, 3));
-            const starMaterial1 = new THREE.PointsMaterial({ color: 0xffaa55, size: 0.12, transparent: true, opacity: 0.5 });
+            const starMaterial1 = new THREE.PointsMaterial({ color: 0x605443, size: 0.12, transparent: true, opacity: 0.5 });
             const stars1 = new THREE.Points(starGeometry1, starMaterial1);
             scene.add(stars1);
             
@@ -924,7 +924,7 @@
                 starPositions2[i * 3 + 2] = radius * Math.cos(phi);
             }
             starGeometry2.setAttribute('position', new THREE.BufferAttribute(starPositions2, 3));
-            const starMaterial2 = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.1, transparent: true, opacity: 0.4 });
+            const starMaterial2 = new THREE.PointsMaterial({ color: #AA88FF, size: 0.1, transparent: true, opacity: 0.4 });
             const stars2 = new THREE.Points(starGeometry2, starMaterial2);
             scene.add(stars2);
             
