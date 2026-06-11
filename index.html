@@ -794,9 +794,9 @@
         <div class="container">
             <h2 class="section-title">Media <span>Gallery</span></h2>
             <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="image">Imagens</button>
-                <button class="filter-btn" data-filter="video">Vídeos</button>
+                <button class="filter-btn active" data-filter="all">📷 Todos</button>
+                <button class="filter-btn" data-filter="image">🖼️ Imagens</button>
+                <button class="filter-btn" data-filter="video">🎬 Vídeos</button>
             </div>
             <div id="skeletonContainer" class="skeleton-grid">
                 <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-text long"></div><div class="skeleton-text short"></div></div>
@@ -858,7 +858,7 @@
 </main>
 
 <script>
-    // ========== THREE.JS ==========
+    // ========== THREE.JS COM PARTÍCULAS PULSANTES E ROTAÇÃO ==========
     window.addEventListener('load', function() {
         if (typeof THREE !== 'undefined') {
             const canvas3d = document.getElementById('canvas3d');
@@ -871,6 +871,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setClearColor(0x000000, 0);
             
+            // Objetos 3D principais
             const geometry1 = new THREE.TorusKnotGeometry(1.2, 0.3, 200, 32);
             const geometry2 = new THREE.IcosahedronGeometry(0.8, 0);
             const geometry3 = new THREE.SphereGeometry(0.5, 32, 32);
@@ -891,31 +892,94 @@
             scene.add(icosahedron);
             scene.add(sphere);
             
-            const starGeometry = new THREE.BufferGeometry();
-            const starCount = 1500;
-            const starPositions = new Float32Array(starCount * 3);
-            for (let i = 0; i < starCount; i++) {
-                starPositions[i * 3] = (Math.random() - 0.5) * 200;
-                starPositions[i * 3 + 1] = (Math.random() - 0.5) * 100;
-                starPositions[i * 3 + 2] = (Math.random() - 0.5) * 100 - 50;
-            }
-            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-            const stars = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.15, transparent: true }));
-            scene.add(stars);
+            // ========== PARTÍCULAS PULSANTES (4 grupos com cores e velocidades diferentes) ==========
             
+            // Grupo 1 - Partículas douradas (pulsação rápida)
+            const starGeometry1 = new THREE.BufferGeometry();
+            const starCount1 = 800;
+            const starPositions1 = new Float32Array(starCount1 * 3);
+            for (let i = 0; i < starCount1; i++) {
+                const radius = 15 + Math.random() * 10;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                starPositions1[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                starPositions1[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                starPositions1[i * 3 + 2] = radius * Math.cos(phi);
+            }
+            starGeometry1.setAttribute('position', new THREE.BufferAttribute(starPositions1, 3));
+            const starMaterial1 = new THREE.PointsMaterial({ color: 0xffaa55, size: 0.12, transparent: true, opacity: 0.5 });
+            const stars1 = new THREE.Points(starGeometry1, starMaterial1);
+            scene.add(stars1);
+            
+            // Grupo 2 - Partículas azuladas (pulsação média)
+            const starGeometry2 = new THREE.BufferGeometry();
+            const starCount2 = 600;
+            const starPositions2 = new Float32Array(starCount2 * 3);
+            for (let i = 0; i < starCount2; i++) {
+                const radius = 18 + Math.random() * 12;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                starPositions2[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                starPositions2[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                starPositions2[i * 3 + 2] = radius * Math.cos(phi);
+            }
+            starGeometry2.setAttribute('position', new THREE.BufferAttribute(starPositions2, 3));
+            const starMaterial2 = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.1, transparent: true, opacity: 0.4 });
+            const stars2 = new THREE.Points(starGeometry2, starMaterial2);
+            scene.add(stars2);
+            
+            // Grupo 3 - Partículas brancas pequenas (pulsação lenta)
+            const starGeometry3 = new THREE.BufferGeometry();
+            const starCount3 = 1200;
+            const starPositions3 = new Float32Array(starCount3 * 3);
+            for (let i = 0; i < starCount3; i++) {
+                const radius = 12 + Math.random() * 15;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                starPositions3[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                starPositions3[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                starPositions3[i * 3 + 2] = radius * Math.cos(phi);
+            }
+            starGeometry3.setAttribute('position', new THREE.BufferAttribute(starPositions3, 3));
+            const starMaterial3 = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 0.6 });
+            const stars3 = new THREE.Points(starGeometry3, starMaterial3);
+            scene.add(stars3);
+            
+            // Grupo 4 - Partículas grandes (pulsação muito lenta)
+            const starGeometry4 = new THREE.BufferGeometry();
+            const starCount4 = 300;
+            const starPositions4 = new Float32Array(starCount4 * 3);
+            for (let i = 0; i < starCount4; i++) {
+                const radius = 20 + Math.random() * 10;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                starPositions4[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                starPositions4[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                starPositions4[i * 3 + 2] = radius * Math.cos(phi);
+            }
+            starGeometry4.setAttribute('position', new THREE.BufferAttribute(starPositions4, 3));
+            const starMaterial4 = new THREE.PointsMaterial({ color: 0xff9966, size: 0.18, transparent: true, opacity: 0.7 });
+            const stars4 = new THREE.Points(starGeometry4, starMaterial4);
+            scene.add(stars4);
+            
+            // Luzes
             const ambientLight = new THREE.AmbientLight(0x404040);
             scene.add(ambientLight);
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
             directionalLight.position.set(5, 10, 7);
             scene.add(directionalLight);
+            const pointLight = new THREE.PointLight(0x605443, 0.5);
+            pointLight.position.set(2, 3, 4);
+            scene.add(pointLight);
             
-            camera.position.z = 8;
+            camera.position.z = 12;
             let time = 0;
             
             function animate() {
                 requestAnimationFrame(animate);
                 time += 0.008;
                 
+                // Rotação dos objetos principais
                 torusKnot.rotation.x += 0.008;
                 torusKnot.rotation.y += 0.012;
                 icosahedron.rotation.x += 0.01;
@@ -923,14 +987,46 @@
                 sphere.rotation.x -= 0.006;
                 sphere.rotation.y += 0.01;
                 
+                // Movimento de flutuação
                 torusKnot.position.y = 1 + Math.sin(time * 1.5) * 0.2;
                 icosahedron.position.y = -1 + Math.cos(time * 1.2) * 0.2;
                 sphere.position.y = 2 + Math.sin(time * 2) * 0.15;
                 
-                stars.rotation.y += 0.0005;
+                // ROTAÇÃO DOS PONTOS (estão sempre a girar!)
+                stars1.rotation.y += 0.002;
+                stars1.rotation.x += 0.001;
+                stars2.rotation.y -= 0.0015;
+                stars2.rotation.x += 0.001;
+                stars3.rotation.y += 0.001;
+                stars3.rotation.z += 0.0005;
+                stars4.rotation.y -= 0.0008;
+                stars4.rotation.x += 0.0005;
+                
+                // PULSAÇÃO (aparece e desaparece ciclicamente)
+                // Grupo 1 - rápido (ciclo completo a cada ~1.2 segundos)
+                const opacity1 = 0.2 + Math.abs(Math.sin(time * 2.5)) * 0.6;
+                starMaterial1.opacity = opacity1;
+                
+                // Grupo 2 - médio (ciclo completo a cada ~1.7 segundos)
+                const opacity2 = 0.15 + Math.abs(Math.sin(time * 1.8)) * 0.65;
+                starMaterial2.opacity = opacity2;
+                
+                // Grupo 3 - lento (ciclo completo a cada ~2.6 segundos)
+                const opacity3 = 0.1 + Math.abs(Math.sin(time * 1.2)) * 0.7;
+                starMaterial3.opacity = opacity3;
+                
+                // Grupo 4 - muito lento (desaparece por mais tempo)
+                const opacity4 = 0.1 + Math.abs(Math.sin(time * 0.6)) * 0.7;
+                starMaterial4.opacity = opacity4;
+                
+                // Efeito de brilho nas cores
+                const hue = 0.08 + Math.sin(time * 0.5) * 0.02;
+                starMaterial1.color.setHSL(hue, 0.8, 0.6);
+                starMaterial4.color.setHSL(hue + 0.05, 0.7, 0.55);
                 
                 renderer.render(scene, camera);
             }
+            
             animate();
             
             window.addEventListener('resize', () => {
@@ -1197,7 +1293,7 @@
     updateClock();
 
     // ========== TEXTO DIGITADO ==========
-    const frases = ['Engenheiro Multimédia 🎨', '3D Artist 🎬', 'Video Editor ✂️', 'FullStack Developer 💻', 'BackEnd Developer </>'];
+    const frases = ['Engenheiro Multimédia 🎨', '3D Artist 🎬', 'Video Editor ✂️', 'FullStack Developer 💻'];
     let i = 0, j = 0, apagando = false;
     const typedEl = document.getElementById('typedText');
     function digitar() {
@@ -1234,7 +1330,7 @@
 
     // ========== DADOS DA GALERIA ==========
     const imagens = [
-        { src: "assets/teste.png", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
+        { src: "assets/imagem1.jpg", titulo: "Meu Trabalho 1", descricao: "Projeto no Blender", tipo: "image" },
         { src: "assets/imagem2.jpg", titulo: "Meu Trabalho 2", descricao: "Design Gráfico", tipo: "image" },
         { src: "assets/imagem3.jpg", titulo: "Meu Trabalho 3", descricao: "Animação", tipo: "image" }
     ];
@@ -1403,8 +1499,9 @@
                             <p>${item.descricao}</p>
                         </div>
                     `;
-                    // Passar a lista completa de imagens e o índice para navegação
-                    card.onclick = () => abrirImagem(item.src, item.titulo, imagens, imagens.findIndex(img => img.src === item.src));
+                    // Encontrar o índice real na lista de imagens
+                    const realIndex = imagens.findIndex(img => img.src === item.src);
+                    card.onclick = () => abrirImagem(item.src, item.titulo, imagens, realIndex >= 0 ? realIndex : index);
                 }
                 galleryContainer.appendChild(card);
             });
@@ -1428,7 +1525,7 @@
     
     if (localStorage.getItem('fontSize')) setFontSize(localStorage.getItem('fontSize'));
     
-    console.log('✅ Portfólio carregado com lightbox de navegação!');
+    console.log('✅ Portfólio carregado com partículas pulsantes e navegação!');
 </script>
 </body>
 </html>
