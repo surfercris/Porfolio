@@ -1182,7 +1182,7 @@
     const formMessage = document.getElementById('formMessage');
     const submitBtn = document.getElementById('submitBtn');
     const FORMSPREE_ID = 'mdajggoa';
-    
+    // ========== Vai Para Spam Se Usar Carateres Especiais ==========
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1209,7 +1209,6 @@
             }
         });
     }
-
     // ========== GITHUB API ==========
     async function fetchGitHubRepos() {
         const username = 'surfercris';
